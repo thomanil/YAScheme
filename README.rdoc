@@ -14,7 +14,7 @@ This implementation targets the R5RS standard. We'll see how far I get.
 
 == SYNOPSIS:
 
-  TODO
+TODO
 
 == REQUIREMENTS:
 
