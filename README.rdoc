@@ -1,39 +1,28 @@
 = yascheme
 
-* http://github.com/#{github_username}/#{project_name} # TODO
+* http://github.com/thomanil/YAScheme
 
 == DESCRIPTION:
 
-YAScheme - Yet Another Scheme - is Simple Scheme inmplementation.
+YAScheme - Yet Another Scheme - is a simple Scheme inmplementation
+built to learn more about Lisp, Ruby and programming language
+construction in general.
 
 == FEATURES/PROBLEMS:
 
-This Scheme implementation targets the R5RS standard.
-
-
-
-TODOs left:
-
-implement r5rs
-calls out to ruby
-components in proper nested modules inside Yascheme module
-rename all Yascheme etc strings to YAScheme
-
-
-
-
+This implementation targets the R5RS standard. We'll see how far I get.
 
 == SYNOPSIS:
 
-  FIX (code sample of usage)
+  TODO
 
 == REQUIREMENTS:
 
-* FIX (list of requirements)
+TODO
 
 == INSTALL:
 
-* FIX (sudo gem install, anything else)
+TODO
 
 == LICENSE:
 
