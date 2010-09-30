@@ -88,7 +88,6 @@ class TestLexer < Test::Unit::TestCase
                   [:close_paren]],  @lexer.tokenize("(quote(quoted))")
   end
 
-
   def test_comment
     assert_equal [[:comment, ";comment"]], @lexer.tokenize(";comment")
     assert_equal [[:symbol, ":before"],

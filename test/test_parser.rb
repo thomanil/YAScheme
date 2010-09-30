@@ -40,5 +40,12 @@ class TestParser < Test::Unit::TestCase
     assert_equal(1, inner_list.children.size)
   end
 
+  def test_quote_macro_expansion
+    tokens = [[:quote_tick],[:atom, "one"]]
+    ast_node = @parser.ast_tree(tokens)
+    
+    # TODO
+  end
+
 
 end

@@ -5,7 +5,7 @@ class TestAst < Test::Unit::TestCase
   def setup
   end
   
-  def test_ast_tree_structure
+  def test_tree_structure
     parent = AstNode.new
     child = AstNode.new
     second_child = AstNode.new
@@ -20,25 +20,32 @@ class TestAst < Test::Unit::TestCase
     assert_equal(second_child, parent[1])
   end
 
-
   def single_parent_two_children
     parent = AstNode.new
-    parent.node_value = "dad"
+    parent.node_type = :parent
     child = AstNode.new
-    child.node_value = "joe"
+    child.node_type = :child1
     second_child = AstNode.new
-    second_child.node_value = "frank"
-
+    second_child.node_type = :child2
     parent.add child
     parent.add second_child
   end
   
-
-  def test_ast_tree_walk
+  def test_tree_walk
     tree = single_parent_two_children
     node_count = 0
     tree.walk {|node| node_count += 1}
     assert_equal 3, node_count
   end
+
+  def test_enumerable_mixin
+    tree = single_parent_two_children
+    assert_equal 3, tree.count
+    assert tree.detect { |node| node.node_type.eql?(:parent) }
+    assert_equal [:parent, :child1, :child2], tree.map { |node| node.node_type }
+  end
+  
+  
+
   
 end

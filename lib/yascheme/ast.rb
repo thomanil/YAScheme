@@ -1,4 +1,6 @@
 class AstNode
+  include Enumerable
+
   attr_accessor :parent, :children
   attr_accessor :node_type, :node_value
  
@@ -38,6 +40,11 @@ class AstNode
     block.call(self)
     children.each{ |child| child.walk(&block) }
   end
+
+  def each
+    self.walk { |node| yield(node) }
+  end
+  
 
 end
 

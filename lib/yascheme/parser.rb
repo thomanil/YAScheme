@@ -35,6 +35,11 @@ class Parser
   end
 
   def expand_reader_macros(tree)
+
+    # TODO ' => (quote )
+
+    # TODO others?  ( ) [ ] { } " , ' ` ; # | \
+    
     tree
   end
 
