@@ -6,6 +6,7 @@ class AstNode
  
   def initialize
     @children = []
+    @node_value = ""
   end
 
   def add(child)
@@ -18,16 +19,16 @@ class AstNode
   end
 
   def to_s
-    node_to_s
+    tree_structure_to_s
   end
   
-  def node_to_s(indentation=0)
+  def tree_structure_to_s(indentation=0)
     node_descr = ""
     indentation.times { node_descr.concat "  " }
     node_descr.concat "#{@node_type}"
-    node_descr.concat " '#{@node_value}'" if @node_value
+    node_descr.concat " #{@node_value}\n"
     children.each do |child| 
-      node_descr.concat("\n#{child.node_to_s(indentation+1)}")
+      node_descr.concat("#{child.tree_structure_to_s(indentation+1)}")
     end
     return node_descr
   end
@@ -45,6 +46,25 @@ class AstNode
     self.walk { |node| yield(node) }
   end
   
+  def next_sibling
+    index_of_self = parent.index_of_child(self)
+    next_sibling = parent.children[index_of_self+1]
+  end
+
+  def index_of_child(node)
+    index_of_child = 0
+    children.each_with_index do |sibling, i| 
+      if(node.eql?(sibling))
+        index_of_child = i
+      end
+    end
+    index_of_child
+  end
+
+  def remove_child(node)
+    orphan_index = index_of_child(node)
+    children.slice!(orphan_index)
+  end
 
 end
 

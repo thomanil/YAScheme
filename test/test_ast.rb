@@ -38,6 +38,10 @@ class TestAst < Test::Unit::TestCase
     assert_equal 3, node_count
   end
 
+  def test_siblings
+    
+  end
+
   def test_enumerable_mixin
     tree = single_parent_two_children
     assert_equal 3, tree.count
@@ -45,7 +49,21 @@ class TestAst < Test::Unit::TestCase
     assert_equal [:parent, :child1, :child2], tree.map { |node| node.node_type }
   end
   
+  def test_next_sibling
+    tree = single_parent_two_children
+    child1 = tree[0]
+    child2 = tree[1]
+    assert_equal child2, child1.next_sibling
+  end
   
-
+  def test_remove_child
+    tree = single_parent_two_children
+    child1 = tree[0]
+    child2 = tree[1]
+    assert_equal tree[0], child1
+    tree.remove_child(child1)
+    assert_equal tree[0], child2
+    assert_equal 1, tree.children.count
+  end
   
 end

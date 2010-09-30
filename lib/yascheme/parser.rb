@@ -2,7 +2,7 @@ class Parser
 
   def ast_tree(tokens)
     tree = into_tree(tokens)
-    tree = expand_reader_macros(tree)
+    tree = expand_reader_macros!(tree)
   end
 
   def into_tree(tokens)
@@ -34,14 +34,26 @@ class Parser
     return root
   end
 
-  def expand_reader_macros(tree)
-
-    # TODO ' => (quote )
-
+  def expand_reader_macros!(tree)
+    expand_quotes(tree)
     # TODO others?  ( ) [ ] { } " , ' ` ; # | \
-    
-    tree
+    return tree
   end
+
+  def expand_quotes(tree)
+     while(quote_node = find_unexpanded_quote_macro(tree))       
+       quote_node.node_type = :quote      
+       quote_child = quote_node.next_sibling
+       quote_child.parent.remove_child(quote_child)
+       quote_node.add quote_child
+    end
+  end
+
+  def find_unexpanded_quote_macro(tree) 
+    tree.find { |node| node.node_type.eql?(:quote_tick) }
+  end
+
+  
 
 
 end

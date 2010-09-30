@@ -9,18 +9,23 @@ class TestParser < Test::Unit::TestCase
   def test_empty_list
     tokens = [[:open_paren],[:close_paren]]
     ast_node = @parser.ast_tree(tokens)
-    assert_equal(:root, ast_node.node_type)
-    list = ast_node[0]
-    assert_equal(:list, list.node_type)
+    expected = <<TREE
+root 
+  list 
+TREE
+    assert_equal expected, ast_node.tree_structure_to_s
   end
   
   def test_flat_list
     tokens = [[:open_paren],[:atom, "one"],[:atom, "two"],[:close_paren]]
     ast_node = @parser.ast_tree(tokens)
-    assert_equal(:root, ast_node.node_type)
-    list = ast_node[0]
-    assert_equal(:list, list.node_type)
-    assert_equal(2, list.children.size)
+    expected = <<TREE
+root 
+  list 
+    atom one
+    atom two
+TREE
+    assert_equal expected, ast_node.tree_structure_to_s
   end
 
   def test_nested_list
@@ -31,20 +36,35 @@ class TestParser < Test::Unit::TestCase
               [:close_paren],
               [:close_paren]]
     ast_node = @parser.ast_tree(tokens)
-    assert_equal(:root, ast_node.node_type)
-    outer_list = ast_node[0]
-    assert_equal(:list, outer_list.node_type)
-    assert_equal(3, outer_list.children.size)
-    inner_list = outer_list[2]
-    assert_equal(:list, inner_list.node_type)
-    assert_equal(1, inner_list.children.size)
+    expected = <<TREE
+root 
+  list 
+    atom outer atom
+    atom another atom
+    list 
+      atom "innermost string"
+TREE
+    assert_equal expected, ast_node.tree_structure_to_s
   end
 
   def test_quote_macro_expansion
     tokens = [[:quote_tick],[:atom, "one"]]
-    ast_node = @parser.ast_tree(tokens)
-    
-    # TODO
+    ast = @parser.into_tree(tokens) 
+    expected = <<TREE
+root 
+  quote_tick 
+  atom one
+TREE
+    assert_equal expected, ast.tree_structure_to_s
+
+    expanded_ast = @parser.expand_reader_macros!(ast)
+    expected_expanded = <<TREE
+root 
+  quote 
+    atom one
+TREE
+
+    assert_equal expected_expanded, expanded_ast.tree_structure_to_s
   end
 
 
