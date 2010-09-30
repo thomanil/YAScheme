@@ -1,14 +1,19 @@
 class Parser
 
   def ast_tree(tokens)
+    tree = into_tree(tokens)
+    tree = expand_reader_macros(tree)
+  end
+
+  def into_tree(tokens)
     root = AstNode.new
     root.node_type = :root
     current_node = root
-  
+    
     tokens.each do |token| 
       type = token[0]
       value = token[1]
-      
+
       case type
       when :open_paren
         new_list = AstNode.new
@@ -24,12 +29,14 @@ class Parser
         current_node.add new_atom
       end
 
-      # TODO implement reader-macros and other special characters:
-      # ( ) [ ] { } " , ' ` ; # | \
-      
     end
-    
+
     return root
   end
+
+  def expand_reader_macros(tree)
+    tree
+  end
+
 
 end

@@ -5,13 +5,7 @@ class TestAst < Test::Unit::TestCase
   def setup
   end
   
-  def test_ast_node
-    string_node = AstNode.new 
-    string_node.node_type = :string
-    string_node.node_value = "test"
-  end
-
-  def test_ast_tree
+  def test_ast_tree_structure
     parent = AstNode.new
     child = AstNode.new
     second_child = AstNode.new
@@ -26,4 +20,25 @@ class TestAst < Test::Unit::TestCase
     assert_equal(second_child, parent[1])
   end
 
+
+  def single_parent_two_children
+    parent = AstNode.new
+    parent.node_value = "dad"
+    child = AstNode.new
+    child.node_value = "joe"
+    second_child = AstNode.new
+    second_child.node_value = "frank"
+
+    parent.add child
+    parent.add second_child
+  end
+  
+
+  def test_ast_tree_walk
+    tree = single_parent_two_children
+    node_count = 0
+    tree.walk {|node| node_count += 1}
+    assert_equal 3, node_count
+  end
+  
 end

@@ -34,5 +34,10 @@ class AstNode
     eval(@node_value)
   end
 
+  def walk(&block)
+    block.call(self)
+    children.each{ |child| child.walk(&block) }
+  end
+
 end
 
