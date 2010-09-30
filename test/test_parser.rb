@@ -17,7 +17,6 @@ class TestParser < Test::Unit::TestCase
   def test_flat_list
     tokens = [[:open_paren],[:atom, "one"],[:atom, "two"],[:close_paren]]
     ast_node = @parser.ast_tree(tokens)
-    
     assert_equal(:root, ast_node.node_type)
     list = ast_node[0]
     assert_equal(:list, list.node_type)
@@ -31,7 +30,6 @@ class TestParser < Test::Unit::TestCase
               [:atom, "\"innermost string\""],
               [:close_paren],
               [:close_paren]]
-
     ast_node = @parser.ast_tree(tokens)
     assert_equal(:root, ast_node.node_type)
     outer_list = ast_node[0]

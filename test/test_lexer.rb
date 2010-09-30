@@ -62,17 +62,42 @@ class TestLexer < Test::Unit::TestCase
                   [:symbol, ":two"],
                   [:string, "\"three\""],
                   [:number, "42"],
-                  [:close_paren]], 
-    @lexer.tokenize("(one two \"three\" 42)")
+                  [:close_paren]], @lexer.tokenize("(one two \"three\" 42)")
   end
   
   def test_string
     assert_equal [[:string, "\"one\""]], @lexer.tokenize("\"one\"")
     assert_equal [[:string, "\"one two quot\""]], @lexer.tokenize("\"one two quot\"")
   end
+
+  def test_quote_tick
+    assert_equal [[:quote_tick]], @lexer.tokenize("'")
+    assert_equal [[:quote_tick],
+                  [:open_paren],
+                  [:symbol, ":quoted"],
+                  [:close_paren]], @lexer.tokenize("'(quoted)")
+  end
+
+  def test_quoted_regular
+    assert_equal [[:quote_tick]], @lexer.tokenize("'")
+    assert_equal [[:open_paren],
+                  [:symbol, ":quote"],
+                  [:open_paren],
+                  [:symbol, ":quoted"],
+                  [:close_paren],
+                  [:close_paren]],  @lexer.tokenize("(quote(quoted))")
+  end
+
+  def test_comment
+    assert_equal [[:comment, ";comment"]], @lexer.tokenize(";comment")
+    assert_equal [[:symbol, ":before"],
+                  [:comment, ";comment after"]], @lexer.tokenize("before;comment after")
+    assert_equal [[:symbol, ":before"],
+                  [:comment, ";comment"],
+                  [:symbol, ":nextline"]], @lexer.tokenize("before;comment\n nextline")
+  end
  
-  #TODO quot ticks
   #TODO error handling report back line and pos
-  #TODO escape characters within strings
+  #TODO string escape characters
  
 end

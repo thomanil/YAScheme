@@ -21,6 +21,12 @@ class Lexer
       elsif(close_paren = remaining[/\A\)/])
         tokens.push [:close_paren]
         skip_ahead close_paren.length
+      elsif(quote_tick = remaining[/\A\'/])
+        tokens.push([:quote_tick])
+        skip_ahead quote_tick.length
+      elsif(comment = remaining[/\A(;.*)$/])
+        tokens.push([:comment, comment])
+        skip_ahead comment.length
       elsif(operator = remaining[/\A([\+\-\/\*])/])
         tokens.push([:operator, operator])
         skip_ahead operator.length

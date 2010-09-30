@@ -25,9 +25,8 @@ class Parser
       end
 
       # TODO implement reader-macros and other special characters:
-      # whitespace ( ) [ ] { } " , ' ` ; # | \
-      # quoted forms, and comments. other? (lists, strings..)
-
+      # ( ) [ ] { } " , ' ` ; # | \
+      
     end
     
     return root
