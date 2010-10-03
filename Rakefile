@@ -22,3 +22,14 @@ Dir['tasks/**/*.rake'].each { |t| load t }
 # TODO - want other tests/tasks run by default? Add them to the list
 # remove_task :default
 # task :default => [:spec, :features]
+
+
+desc "Extract TODO comment lines from markup and code"
+task :todo do
+ puts %x{egrep -r TODO *};
+end
+
+desc "Determine current LOC, including and not including tests"
+task :loc do
+     puts "TODO Loc task output"
+end  
