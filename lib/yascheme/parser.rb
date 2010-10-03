@@ -41,19 +41,13 @@ class Parser
   end
 
   def expand_quotes(tree)
-     while(quote_node = find_unexpanded_quote_macro(tree))       
-       quote_node.node_type = :quote      
-       quote_child = quote_node.next_sibling
-       quote_child.parent.remove_child(quote_child)
-       quote_node.add quote_child
+    quote_nodes = tree.select { |node| node.node_type.eql?(:quote_tick) }
+    quote_nodes.each do |node| 
+      node.node_type = :quote      
+      child = node.next_sibling
+      child.parent.remove_child(child)
+      node.add child
     end
   end
-
-  def find_unexpanded_quote_macro(tree) 
-    tree.find { |node| node.node_type.eql?(:quote_tick) }
-  end
-
-  
-
 
 end
