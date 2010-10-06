@@ -12,7 +12,7 @@ construction in general. The implementation targets the R5RS standard. We'll see
 
 Not much there yet. I'll use this readme file as my TODO list.
 
-DONE:
+*DONE:*
 
 * Skeleton of a lexer, parser, interpeter, abstract syntax tree.
 * Lists, numbers, strings, symbols
@@ -21,7 +21,7 @@ DONE:
 * Comments (;)
 * Quote reader macro (')
 
-TODO:
+*TODO:*
 
 * Proper handling of quotes
 * Global binding scope (to begin with)
