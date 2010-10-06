@@ -6,16 +6,6 @@ class Lexer
     if(unbalanced_parens? code) then syntax_error("Unbalanced parens") end
     if(unbalanced_quots? code) then syntax_error("Unmatched quotation marks") end
         
-    WHITESPACE = /\A(\s+)/
-    OPEN_PAREN = /\A\(/
-    CLOSE_PARENT = /\A\)/
-    QUOTE_TICK = /\A\'/
-    COMMENT = /\A(;.*)$/
-    ARITHMETIC_OPERATOR = /\A([\+\-\/\*])/
-    NUMBER = /\A(\d+)/
-    SYMBOL = /\A(\w+)/
-    STRING = /\A([\"].*?[\"])/
-
     @scanner = StringScanner.new(code)
     tokens = []
     pos = 0
@@ -23,30 +13,30 @@ class Lexer
     while(!finished_tokenizing)
       remaining = code[@scanner.pos, code.length]
       
-      if(whitespace = remaining[WHITESPACE])
+      if(whitespace = remaining[/\A(\s+)/])
         skip_ahead whitespace.length
-      elsif(open_paren = remaining[OPEN_PAREN])
+      elsif(open_paren = remaining[/\A\(/])
         tokens.push [:open_paren]
         skip_ahead open_paren.length
-      elsif(close_paren = remaining[CLOSE_PAREN])
+      elsif(close_paren = remaining[/\A\)/])
         tokens.push [:close_paren]
         skip_ahead close_paren.length
-      elsif(quote_tick = remaining[QUOTE_TICK])
+      elsif(quote_tick = remaining[/\A\'/])
         tokens.push([:quote_tick])
         skip_ahead quote_tick.length
-      elsif(comment = remaining[COMMENT])
+      elsif(comment = remaining[/\A(;.*)$/])
         tokens.push([:comment, comment])
         skip_ahead comment.length
-      elsif(operator = remaining[ARITHMETIC_OPERATOR])
+      elsif(operator = remaining[/\A([\+\-\/\*])/])
         tokens.push([:operator, operator])
         skip_ahead operator.length
-      elsif(number = remaining[NUMBER])
+      elsif(number = remaining[/\A(\d+)/])
         tokens.push([:number, number])
         skip_ahead number.length
-      elsif(symbol = remaining[SYMBOL])
+      elsif(symbol = remaining[/\A(\w+)/])
         tokens.push([:symbol, ":#{symbol}"])
         skip_ahead symbol.length
-      elsif(string = remaining[STRING])
+      elsif(string = remaining[/\A([\"].*?[\"])/])
         tokens.push([:string, string])
         skip_ahead string.length
       else

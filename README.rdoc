@@ -38,7 +38,7 @@ Not much there yet. I'll use this readme file as my TODO list.
 * Closures
 * Macros aka syntactic extensions
 * Continuations
-* Tail call optimization:
+* Tail call optimization
 * ...
 
 == SYNOPSIS 
