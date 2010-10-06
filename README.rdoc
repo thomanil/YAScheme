@@ -4,15 +4,44 @@
 
 == DESCRIPTION:
 
-YAScheme - Yet Another Scheme - is a simple Scheme inmplementation
+YAScheme - Yet Another Scheme - is a simple Scheme implementation
 built to learn more about Lisp, Ruby and programming language
-construction in general.
+construction in general. The implementation targets the R5RS standard. We'll see how far I get.
 
 == FEATURES/PROBLEMS:
 
-This implementation targets the R5RS standard. We'll see how far I get.
+Not much there yet. I'll use this readme file as my TODO list.
 
-== SYNOPSIS:
+DONE:
+
+* Skeleton of a lexer, parser, interpeter, abstract syntax tree.
+* Lists, numbers, strings, symbols
+* Function evaluation 
+* Basic arithmetic functions
+* Comments (;)
+* Quote reader macro (')
+
+TODO:
+
+* Proper handling of quotes
+* Global binding scope (to begin with)
+* Variable binding (define, set!)
+* Function definition (lambda)
+* REPL
+* Brackets as parens equivalent
+* Vectors (#())
+* Booleans (#t)
+* Truthiness of all values except #f
+* String escape characters
+* Enforce proper rules for identifier names
+* Lexical scope, blocks, shadowing
+* Closures
+* Macros aka syntactic extensions
+* Continuations
+* Tail call optimization:
+* ...
+
+== SYNOPSIS 
 
 TODO
 
