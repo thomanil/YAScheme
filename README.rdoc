@@ -24,6 +24,7 @@ Not much there yet. I'll use this readme file as my TODO list.
 *TODO*
 
 * Proper handling of quotes
+* primitives (car, cdr, cons, etc)??
 * Global binding scope (to begin with)
 * Variable binding (define, set!)
 * Function definition (lambda)
