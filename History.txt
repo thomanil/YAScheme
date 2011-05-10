@@ -1,0 +1,4 @@
+= 0.0.1 01/12/2010
+	
+* Initial version
+  * Skeleton of lexer, parser and interpreter
