@@ -25,6 +25,7 @@ Not much there yet. I'll use this readme file as my TODO list.
 
 * Proper handling of quotes
 * list processing primitives (car, cdr, cons, etc)
+* Flow control (if, cond, etc)
 * Interactive REPL
 * Launching scheme code/files from cmd line
 * Function definition (lambda)
