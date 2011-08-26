@@ -24,23 +24,19 @@ Not much there yet. I'll use this readme file as my TODO list.
 *TODO*
 
 * Proper handling of quotes
-* primitives (car, cdr, cons, etc)??
-* Global binding scope (to begin with)
-* Variable binding (define, set!)
+* list processing primitives (car, cdr, cons, etc)
+* Interactive REPL
+* Launching scheme code/files from cmd line
 * Function definition (lambda)
-* REPL
+* Definitions and variables (define, let, set!)
 * Brackets as parens equivalent
-* Vectors (#())
-* Booleans (#t)
-* Truthiness of all values except #f
-* String escape characters
-* Enforce proper rules for identifier names
-* Lexical scope, blocks, shadowing
-* Closures
+* Global scope, block scope
+* Closures, lexical scope
 * Macros aka syntactic extensions
 * Continuations
 * Tail call optimization
-* ...
+* Spec-compliant support for datatypes (vectors #(), booleans #t/#f, etc)
+* (...see how far down the rabbithole I want to go in coverage of the spec)
 
 == SYNOPSIS 
 
