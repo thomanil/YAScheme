@@ -72,26 +72,9 @@ class AstNode
   end
   
   def eval(context={})
-    if(@node_type.eql?(:root))
-      children.each { |child| @last_result = child.eval(context) }
-      @last_result
-    elsif(@node_type.eql?(:list)) #unquoted lists are always procedure calls
-      function_name = children[0].node_value
-      arguments = children[1..children.length]
-      call_function(function_name, arguments, context)
-    elsif(@node_type.eql?(:quote))
-      # TODO if list, return list as data
-      #  list = []
-      #  children.each { |child| list.push(eval(child, context)) }
-      #  list
-      # TODO else if atom, return atom name
-    elsif(@node_type.eql?(:symbol))
-      # TODO resolve identifier
-      raise "Unresolved identifier '#{@node_value}'"
-    elsif(@node_type.eql?(:string) || 
-          @node_type.eql?(:number))
-      Kernel.eval("#{@node_value}")
-    end
+      last_result = nil
+      children.each { |child| last_result = child.eval(context) }
+      return last_result
   end
 
   # TODO support more built-in functions
