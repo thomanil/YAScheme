@@ -4,14 +4,9 @@ class AstNode
   attr_accessor :parent, :children
   attr_accessor :node_value
   
-  def initialize(*options)
-    @node_value = options[0]
-    @node_type = options[1]
+  def initialize(value = nil)
+    @node_value = value
     @children = []
-  end
-
-  def node_type
-    @node_type
   end
 
   def add(child)
@@ -30,7 +25,7 @@ class AstNode
   def tree_structure_to_s(indentation=0)
     node_descr = ""
     indentation.times { node_descr.concat "  " }
-    node_descr.concat "#{@node_type}"
+    node_descr.concat "#{self.class}"
     node_descr.concat " #{@node_value}\n"
     if (!children.nil?)
       children.each do |child| 

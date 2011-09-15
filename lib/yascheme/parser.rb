@@ -6,7 +6,7 @@ class Parser
   end
 
   def into_tree(tokens)
-    root = AstNode.new(nil, :root)
+    root = AstNode.new
     current_node = root
     
     tokens.each do |token| 
@@ -15,23 +15,23 @@ class Parser
 
       case type
       when :open_paren
-        new_list = ListNode.new(value, :list)
+        new_list = ListNode.new 
         current_node.add new_list
         current_node = new_list
       when :close_paren
         current_node = current_node.parent
       when :string
-        current_node.add(StringNode.new(value, type))
+        current_node.add StringNode.new(value)
       when :number
-        current_node.add(NumberNode.new(value, type))
+        current_node.add NumberNode.new(value)
       when :boolean
-        current_node.add(BooleanNode.new(value, type))
+        current_node.add BooleanNode.new
       when :identifier
-        current_node.add(IdentifierNode.new(value, type))
+        current_node.add IdentifierNode.new(value)
       when :quote
-        current_node.add(QuoteNode.new(value, type))
+        current_node.add QuoteNode.new
       else
-        current_node.add(AstNode.new(value, type))
+        current_node.add QuoteTickNode.new
       end
 
     end
@@ -46,9 +46,9 @@ class Parser
   end
 
   def expand_quotes(tree)
-    quote_nodes = tree.select { |node| node.node_type.eql?(:quote_tick) }
+    quote_nodes = tree.select { |node| node.class == QuoteTickNode  }
     quote_nodes.each do |tick|
-      expanded_node = QuoteNode.new(nil, :quote)
+      expanded_node = QuoteNode.new
       expanded_node.add(tick.next_sibling)
       parent = tick.parent
       parent.remove_child(tick.next_sibling)

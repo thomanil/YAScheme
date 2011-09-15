@@ -21,9 +21,9 @@ class TestAst < Test::Unit::TestCase
   end
 
   def single_parent_two_children
-    parent = AstNode.new(nil, :parent)
-    child = AstNode.new(nil, :child1)
-    second_child = AstNode.new(nil, :child2)
+    parent = AstNode.new
+    child = AstNode.new
+    second_child = AstNode.new
     parent.add child
     parent.add second_child
   end
@@ -35,16 +35,23 @@ class TestAst < Test::Unit::TestCase
     assert_equal 3, node_count
   end
 
-  def test_siblings
-    
+  def test_enumerable_mixed_in
+    tree = single_parent_two_children    
+    assert_equal 3, tree.count
+    assert_equal 3, (tree.count { |node| node.class == AstNode })
+    assert_equal ["AstNode", "AstNode", "AstNode"], tree.map { |node| node.class.to_s }
   end
 
-  def test_enumerable_mixin
-    tree = single_parent_two_children
-    assert_equal 3, tree.count
-    assert tree.detect { |node| node.node_type.eql?(:parent) }
-    assert_equal [:parent, :child1, :child2], tree.map { |node| node.node_type }
+  def test_tree_tostring
+    expected =
+<<TREE
+AstNode 
+  AstNode 
+  AstNode 
+TREE
+    assert_equal expected, single_parent_two_children.to_s
   end
+  
   
   def test_next_sibling
     tree = single_parent_two_children
