@@ -6,22 +6,21 @@ class TestInterpreter < Test::Unit::TestCase
     @interpreter = Interpreter.new
   end
 
-
- def test_eval_boolean
-
- end
-
- def test_eval_lonely_identifier
-   assert_raise(RuntimeError) { @interpreter.run("non_existant_id") }
- end   
-
  def test_eval_number
-    assert_equal 42,  @interpreter.run("42")
+    assert_equal "42",  @interpreter.run("42")
  end  
 
  def test_eval_string
-  assert_equal "this is a string",  @interpreter.run("\"this is a string\"")
+  assert_equal "\"this is a string\"",  @interpreter.run("\"this is a string\"")
  end  
+
+ def test_eval_undefined_identifier
+   assert_raise(RuntimeError) { @interpreter.run("non_existant_id") }
+ end   
+
+ def test_eval_boolean
+   
+ end
 
  def test_eval_quoted_list
 #   assert_equal "(1 2)",  @interpreter.run("'(1 2)")

@@ -27,15 +27,15 @@ class Lexer
       elsif(comment = remaining[/\A(;.*)$/])
         tokens.push([:comment, comment])
         skip_ahead comment.length
-      elsif(operator = remaining[/\A([\+\-\/\*])/])
-        tokens.push([:operator, operator])
+      elsif(operator = remaining[/\A([\+\-\/\*])/]) #TMP only, remove later
+        tokens.push([:identifier, operator])
         skip_ahead operator.length
       elsif(number = remaining[/\A(\d+)/])
         tokens.push([:number, number])
         skip_ahead number.length
-      elsif(symbol = remaining[/\A(\w+)/])
-        tokens.push([:symbol, symbol])
-        skip_ahead symbol.length
+      elsif(identifier = remaining[/\A(\w+)/])
+        tokens.push([:identifier, identifier])
+        skip_ahead identifier.length
       elsif(string = remaining[/\A([\"].*?[\"])/])
         tokens.push([:string, string])
         skip_ahead string.length

@@ -18,23 +18,23 @@ TREE
   end
   
   def test_flat_list
-    tokens = [[:open_paren],[:symbol, "one"],[:symbol, "two"],[:close_paren]]
+    tokens = [[:open_paren],[:identifier, "one"],[:identifier, "two"],[:close_paren]]
     ast_node = @parser.ast_tree(tokens)
     expected =
 <<TREE
 root 
   list 
-    symbol one
-    symbol two
+    identifier one
+    identifier two
 TREE
     assert_equal expected, ast_node.tree_structure_to_s
   end
 
   def test_nested_list
     tokens = [[:open_paren],
-              [:symbol, "outer symbol"],[:symbol, "another symbol"],
+              [:identifier, "outer"],[:identifier, "another"],
               [:open_paren],
-              [:symbol, "\"innermost string\""],
+              [:identifier, "\"innermost string\""],
               [:close_paren],
               [:close_paren]]
     ast_node = @parser.ast_tree(tokens)
@@ -42,22 +42,22 @@ TREE
 <<TREE
 root 
   list 
-    symbol outer symbol
-    symbol another symbol
+    identifier outer
+    identifier another
     list 
-      symbol "innermost string"
+      identifier "innermost string"
 TREE
     assert_equal expected, ast_node.tree_structure_to_s
   end
 
   def test_quote_macro_expansion
-    tokens = [[:quote_tick],[:symbol, "one"]]
+    tokens = [[:quote_tick],[:identifier, "one"]]
     ast = @parser.into_tree(tokens) 
     expected =
 <<TREE
 root 
   quote_tick 
-  symbol one
+  identifier one
 TREE
     assert_equal expected, ast.tree_structure_to_s
 
@@ -66,7 +66,7 @@ TREE
 <<TREE
 root 
   quote 
-    symbol one
+    identifier one
 TREE
 
     assert_equal expected_expanded, expanded_ast.tree_structure_to_s
