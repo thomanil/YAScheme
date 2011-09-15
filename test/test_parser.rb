@@ -9,7 +9,8 @@ class TestParser < Test::Unit::TestCase
   def test_empty_list
     tokens = [[:open_paren],[:close_paren]]
     ast_node = @parser.ast_tree(tokens)
-    expected = <<TREE
+    expected =
+<<TREE
 root 
   list 
 TREE
@@ -19,7 +20,8 @@ TREE
   def test_flat_list
     tokens = [[:open_paren],[:atom, "one"],[:atom, "two"],[:close_paren]]
     ast_node = @parser.ast_tree(tokens)
-    expected = <<TREE
+    expected =
+<<TREE
 root 
   list 
     atom one
@@ -36,7 +38,8 @@ TREE
               [:close_paren],
               [:close_paren]]
     ast_node = @parser.ast_tree(tokens)
-    expected = <<TREE
+    expected =
+<<TREE
 root 
   list 
     atom outer atom
@@ -50,7 +53,8 @@ TREE
   def test_quote_macro_expansion
     tokens = [[:quote_tick],[:atom, "one"]]
     ast = @parser.into_tree(tokens) 
-    expected = <<TREE
+    expected =
+<<TREE
 root 
   quote_tick 
   atom one
@@ -58,7 +62,8 @@ TREE
     assert_equal expected, ast.tree_structure_to_s
 
     expanded_ast = @parser.expand_reader_macros!(ast)
-    expected_expanded = <<TREE
+    expected_expanded =
+<<TREE
 root 
   quote 
     atom one
