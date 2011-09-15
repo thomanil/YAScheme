@@ -21,12 +21,9 @@ class TestAst < Test::Unit::TestCase
   end
 
   def single_parent_two_children
-    parent = AstNode.new
-    parent.node_type = :parent
-    child = AstNode.new
-    child.node_type = :child1
-    second_child = AstNode.new
-    second_child.node_type = :child2
+    parent = AstNode.new(nil, :parent)
+    child = AstNode.new(nil, :child1)
+    second_child = AstNode.new(nil, :child2)
     parent.add child
     parent.add second_child
   end

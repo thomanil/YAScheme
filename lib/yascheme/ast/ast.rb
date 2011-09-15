@@ -2,12 +2,16 @@ class AstNode
   include Enumerable
 
   attr_accessor :parent, :children
-  attr_accessor :node_type, :node_value
- 
-  def initialize
+  attr_accessor :node_value
+  
+  def initialize(*options)
+    @node_value = options[0]
+    @node_type = options[1]
     @children = []
-    @node_value = ""
-    @last_result = nil
+  end
+
+  def node_type
+    @node_type
   end
 
   def add(child)
@@ -28,10 +32,12 @@ class AstNode
     indentation.times { node_descr.concat "  " }
     node_descr.concat "#{@node_type}"
     node_descr.concat " #{@node_value}\n"
-    children.each do |child| 
-      node_descr.concat("#{child.tree_structure_to_s(indentation+1)}")
+    if (!children.nil?)
+      children.each do |child| 
+        node_descr.concat("#{child.tree_structure_to_s(indentation+1)}")
+      end
     end
-    return node_descr
+     return node_descr
   end
   
   def each
@@ -40,7 +46,9 @@ class AstNode
 
   def walk(&block)
     block.call(self)
-    children.each{ |child| child.walk(&block) }
+    if(!children.nil?)
+      children.each{ |child| child.walk(&block) }
+    end
   end
   
   def next_sibling

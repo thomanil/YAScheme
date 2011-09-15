@@ -6,8 +6,7 @@ class Parser
   end
 
   def into_tree(tokens)
-    root = AstNode.new
-    root.node_type = :root
+    root = AstNode.new(nil, :root)
     current_node = root
     
     tokens.each do |token| 
@@ -16,41 +15,28 @@ class Parser
 
       case type
       when :open_paren
-        new_list = ListNode.new
-        new_list.node_type = :list
+        new_list = ListNode.new(nil, :list)
         current_node.add new_list
         current_node = new_list
       when :close_paren
         current_node = current_node.parent
       when :string
-        new_node = StringNode.new
-        new_node.node_type = type
-        new_node.node_value = value
+        new_node = StringNode.new(value, type)
         current_node.add new_node
       when :number
-        new_node = NumberNode.new
-        new_node.node_type = type
-        new_node.node_value = value
+        new_node = NumberNode.new(value, type)
         current_node.add new_node
       when :boolean
-        new_node = BooleanNode.new
-        new_node.node_type = type
-        new_node.node_value = value
+        new_node = BooleanNode.new(value, type)
         current_node.add new_node
       when :identifier
-        new_node = IdentifierNode.new
-        new_node.node_type = type
-        new_node.node_value = value
+        new_node = IdentifierNode.new(value, type)
         current_node.add new_node
       when :quote
-        new_node = QuoteNode.new
-        new_node.node_type = type
-        new_node.node_value = value
+        new_node = QuoteNode.new(value, type)
         current_node.add new_node
       else
-        new_atom = AstNode.new
-        new_atom.node_type = type
-        new_atom.node_value = value
+        new_atom = AstNode.new(value, type)
         current_node.add new_atom
       end
 
@@ -67,11 +53,13 @@ class Parser
 
   def expand_quotes(tree)
     quote_nodes = tree.select { |node| node.node_type.eql?(:quote_tick) }
-    quote_nodes.each do |node| 
-      node.node_type = :quote      
-      child = node.next_sibling
-      child.parent.remove_child(child)
-      node.add child
+    quote_nodes.each do |tick|
+      expanded_node = QuoteNode.new(nil, :quote)
+      expanded_node.add(tick.next_sibling)
+      parent = tick.parent
+      parent.remove_child(tick.next_sibling)
+      parent.remove_child(tick)
+      parent.add(expanded_node)
     end
   end
 
