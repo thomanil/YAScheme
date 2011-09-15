@@ -46,10 +46,10 @@ class TestLexer < Test::Unit::TestCase
   end
   
   def test_atoms
-    assert_equal [[:symbol, ":symbol"]], @lexer.tokenize("symbol")
+    assert_equal [[:symbol, "symbol"]], @lexer.tokenize("symbol")
     assert_equal [[:string, "\"string\""]], @lexer.tokenize("\"string\"")
     assert_equal [[:number, "123"]], @lexer.tokenize("123")
-    assert_equal [[:symbol, ":two"],[:symbol, ":symbols"]], @lexer.tokenize("two symbols")
+    assert_equal [[:symbol, "two"],[:symbol, "symbols"]], @lexer.tokenize("two symbols")
     assert_equal [[:operator, "+"]], @lexer.tokenize("+")
     assert_equal [[:operator, "-"]], @lexer.tokenize("-")
     assert_equal [[:operator, "/"]], @lexer.tokenize("/")
@@ -58,8 +58,8 @@ class TestLexer < Test::Unit::TestCase
   
   def test_list
     assert_equal [[:open_paren], 
-                  [:symbol, ":one"],
-                  [:symbol, ":two"],
+                  [:symbol, "one"],
+                  [:symbol, "two"],
                   [:string, "\"three\""],
                   [:number, "42"],
                   [:close_paren]], @lexer.tokenize("(one two \"three\" 42)")
@@ -74,27 +74,27 @@ class TestLexer < Test::Unit::TestCase
     assert_equal [[:quote_tick]], @lexer.tokenize("'")
     assert_equal [[:quote_tick],
                   [:open_paren],
-                  [:symbol, ":quoted"],
+                  [:symbol, "quoted"],
                   [:close_paren]], @lexer.tokenize("'(quoted)")
   end
 
   def test_quoted_regular
     assert_equal [[:quote_tick]], @lexer.tokenize("'")
     assert_equal [[:open_paren],
-                  [:symbol, ":quote"],
+                  [:symbol, "quote"],
                   [:open_paren],
-                  [:symbol, ":quoted"],
+                  [:symbol, "quoted"],
                   [:close_paren],
                   [:close_paren]],  @lexer.tokenize("(quote(quoted))")
   end
 
   def test_comment
     assert_equal [[:comment, ";comment"]], @lexer.tokenize(";comment")
-    assert_equal [[:symbol, ":before"],
+    assert_equal [[:symbol, "before"],
                   [:comment, ";comment after"]], @lexer.tokenize("before;comment after")
-    assert_equal [[:symbol, ":before"],
+    assert_equal [[:symbol, "before"],
                   [:comment, ";comment"],
-                  [:symbol, ":nextline"]], @lexer.tokenize("before;comment\n nextline")
+                  [:symbol, "nextline"]], @lexer.tokenize("before;comment\n nextline")
   end
  
   #TODO error handling report back line and pos

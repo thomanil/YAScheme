@@ -17,8 +17,6 @@ I'll use this readme file as my TODO list.
 
 * Skeleton of a lexer, parser, interpeter, abstract syntax tree.
 * Lists, numbers, strings, symbols
-* Function evaluation 
-* Basic arithmetic functions
 * Comments (;)
 * Quote reader macro (')
 
@@ -26,6 +24,7 @@ I'll use this readme file as my TODO list.
 
 * Proper handling of quotes
 * list processing primitives (car, cdr, cons, etc)
+* Function evaluation 
 * Interface: REPL and file launcher
 * Global scope, block scope
 * Definitions and variables (define, let, set!)
