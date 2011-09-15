@@ -51,8 +51,7 @@ AstNode
 TREE
     assert_equal expected, single_parent_two_children.to_s
   end
-  
-  
+
   def test_next_sibling
     tree = single_parent_two_children
     child1 = tree[0]

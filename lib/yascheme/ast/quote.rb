@@ -1,11 +1,8 @@
 class QuoteNode < AstNode
 
   def eval(context={})
-    # TODO if list, return list as data
-      #  list = []
-      #  children.each { |child| list.push(eval(child, context)) }
-      #  list
-      # TODO else if atom, return atom name
+    quoted_children = ""
+    children.map { |node| node.node_value }.join("")
   end
   
 end

@@ -45,6 +45,12 @@ class AstNode
       children.each{ |child| child.walk(&block) }
     end
   end
+
+  def eval(context={})
+      last_result = nil
+      children.each { |child| last_result = child.eval(context) }
+      return last_result
+  end
   
   def next_sibling
     index_of_self = parent.index_of_child(self)
@@ -65,12 +71,7 @@ class AstNode
     orphan_index = index_of_child(node)
     children.slice!(orphan_index)
   end
-  
-  def eval(context={})
-      last_result = nil
-      children.each { |child| last_result = child.eval(context) }
-      return last_result
-  end
+ 
 
 
   

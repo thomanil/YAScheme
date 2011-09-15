@@ -22,19 +22,14 @@ class TestInterpreter < Test::Unit::TestCase
    
  end
 
- def test_eval_quoted_list
-#   assert_equal "(1 2)",  @interpreter.run("'(1 2)")
-#   assert_equal "(1 two \"three\")",  @interpreter.run("'(1 two \"three\")")
- end  
-
- def test_eval_quoted_identifier
- #  assert_equal "hello",  @interpreter.run("'hello")
+ def test_eval_quoted_forms
+   assert_equal "hello",  @interpreter.run("'hello")
+   assert_equal "(1 2)",  @interpreter.run("'(1 2)")
+   # assert_equal [1, [2, 3]],  @interpreter.run("'(1 (2 3))")
+   # assert_equal "(1 two \"three\")",  @interpreter.run("'(1 two \"three\")")
+   # TODO quoted list with all the diff ast types inside
  end  
  
- def test_eval_quoted_nested_list
-   #assert_equal [1, [2, 3]],  @interpreter.run("'(1 (2 3))")
- end
-
  def test_eval_arithmetic_functions
    assert_equal 2,  @interpreter.run("(+ 1 1)")
    assert_equal 3,  @interpreter.run("(+ 1 1 1)")
