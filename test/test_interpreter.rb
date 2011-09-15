@@ -38,7 +38,7 @@ class TestInterpreter < Test::Unit::TestCase
  def test_eval_arithmetic_functions
    assert_equal 2,  @interpreter.run("(+ 1 1)")
    assert_equal 3,  @interpreter.run("(+ 1 1 1)")
-   #assert_equal 4,  @interpreter.run("(+ (+ 1 1) (+ 1 1))")
+   assert_equal 4,  @interpreter.run("(+ (+ 1 1) (+ 1 1))")
    assert_equal 1,  @interpreter.run("(- 4 3)")
    assert_equal 6,  @interpreter.run("(* 2 3)")
    assert_equal 5,  @interpreter.run("(/ 15 3)")
