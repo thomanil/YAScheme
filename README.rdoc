@@ -6,11 +6,12 @@
 
 YAScheme - Yet Another Scheme - is a simple Scheme implementation
 built to learn more about Lisp, Ruby and programming language
-construction in general. The implementation targets the R5RS standard. We'll see how far I get.
+construction in general. The implementation targets the R5RS
+standard. We'll see how far I get.
 
 == FEATURES/PROBLEMS:
 
-Not much there yet. I'll use this readme file as my TODO list.
+I'll use this readme file as my TODO list.
 
 *DONE*
 
@@ -25,13 +26,12 @@ Not much there yet. I'll use this readme file as my TODO list.
 
 * Proper handling of quotes
 * list processing primitives (car, cdr, cons, etc)
-* Flow control (if, cond, etc)
-* Interactive REPL
-* Launching scheme code/files from cmd line
-* Function definition (lambda)
-* Definitions and variables (define, let, set!)
-* Brackets as parens equivalent
+* Interface: REPL and file launcher
 * Global scope, block scope
+* Definitions and variables (define, let, set!)
+* Function definition (lambda)
+* Flow control (if, cond, etc)
+* Brackets as parens equivalent
 * Closures, lexical scope
 * Macros aka syntactic extensions
 * Continuations
@@ -55,7 +55,7 @@ TODO
 
 (The MIT License)
 
-Copyright (c) 2010 YAScheme
+Copyright (c) 2011 YAScheme
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
