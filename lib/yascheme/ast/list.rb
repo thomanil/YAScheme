@@ -1,7 +1,5 @@
 class ListNode < AstNode
 
-  
-  
   def eval(context={})
     function_name = children[0].node_value
     arguments = children[1..children.length]

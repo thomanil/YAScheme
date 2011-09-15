@@ -15,7 +15,7 @@ class Parser
 
       case type
       when :open_paren
-        new_list = ListNode.new(nil, :list)
+        new_list = ListNode.new(value, :list)
         current_node.add new_list
         current_node = new_list
       when :close_paren

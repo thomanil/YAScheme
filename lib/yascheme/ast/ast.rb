@@ -77,24 +77,6 @@ class AstNode
       return last_result
   end
 
-  # TODO support more built-in functions
-  # TODO + actually find other functions in context
-  # TODO move arithmetic and other basis stuff to scheme library definition
-  def call_function(name, argument_atoms, context={})
-    case name
-    when "+"
-      sum = argument_atoms.map {|atom| atom.node_value}.join("+")
-    when "-"
-      sum = argument_atoms.map {|atom| atom.node_value}.join("-")
-    when "*"
-      sum = argument_atoms.map {|atom| atom.node_value}.join("*")
-    when "/"
-      sum = argument_atoms.map {|atom| atom.node_value}.join("/")
-    end
-
-    return Kernel.eval("#{sum}")    
-  end
-
 
   
 end
