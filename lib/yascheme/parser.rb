@@ -21,23 +21,17 @@ class Parser
       when :close_paren
         current_node = current_node.parent
       when :string
-        new_node = StringNode.new(value, type)
-        current_node.add new_node
+        current_node.add(StringNode.new(value, type))
       when :number
-        new_node = NumberNode.new(value, type)
-        current_node.add new_node
+        current_node.add(NumberNode.new(value, type))
       when :boolean
-        new_node = BooleanNode.new(value, type)
-        current_node.add new_node
+        current_node.add(BooleanNode.new(value, type))
       when :identifier
-        new_node = IdentifierNode.new(value, type)
-        current_node.add new_node
+        current_node.add(IdentifierNode.new(value, type))
       when :quote
-        new_node = QuoteNode.new(value, type)
-        current_node.add new_node
+        current_node.add(QuoteNode.new(value, type))
       else
-        new_atom = AstNode.new(value, type)
-        current_node.add new_atom
+        current_node.add(AstNode.new(value, type))
       end
 
     end
