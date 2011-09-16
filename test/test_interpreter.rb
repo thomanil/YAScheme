@@ -14,10 +14,10 @@ class TestInterpreter < Test::Unit::TestCase
     assert_equal "\"this is a string\"",  @interpreter.run("\"this is a string\"")
   end  
 
-  #def test_boolean_literal
-  #  assert_equal "#t",  @interpreter.run("#t")
-  #end
-
+  def test_boolean_literal
+    assert_equal "#t",  @interpreter.run("#t")
+  end
+  
   def test_quoted_forms
     assert_equal "hello",  @interpreter.run("'hello")
     assert_equal "(1 2)",  @interpreter.run("'(1 2)")
@@ -41,10 +41,6 @@ class TestInterpreter < Test::Unit::TestCase
     assert_equal "((1) 2 3)", @interpreter.run("(cons '(1) '(2 3))")
   end
   
-  def test_run_multiple_top_level_expressions
-    #todo
-  end
-
   def test_set_expression
     assert_raise(RuntimeError) { @interpreter.run("foo") }
 
@@ -54,8 +50,21 @@ foo
 CODE
     assert_equal "42",  @interpreter.run(define_then_resolve)
   end
+
+  def test_if_statement   
+    assert_equal "42", @interpreter.run("(if #t 42 69)")
+    assert_equal "69", @interpreter.run("(if #f 42 69)")
+  end
+
+  def test_truthiness
+    
+  end
   
   def test_state_preserved_between_each_interpreter_run
+    #todo
+  end
+
+  def test_run_multiple_top_level_expressions
     #todo
   end
   

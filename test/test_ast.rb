@@ -76,9 +76,7 @@ TREE
     tree.replace_child unwanted, replacement
     assert_equal tree[0], replacement
   end
-
-  #test variable binding stuff
-
+  
   def test_only_ast_nodes_allowed_as_values
     tree = single_parent_two_children
     assert_raise(RuntimeError) { tree.define_local "bad-var", "not an ast node"  }
@@ -117,6 +115,11 @@ TREE
     assert_equal string_node, tree.lookup("foo")
     assert_equal string_node, child.lookup("foo")
   end
-  
+
+  def test_boolean_ast_truthiness
+    assert_equal true, BooleanNode.new("#t").true?
+    assert_equal false, BooleanNode.new("#f").true?
+    assert_raise(RuntimeError) { BooleanNode.new("invalid").true? }              
+  end  
   
 end

@@ -16,7 +16,7 @@ I'll use this readme file as my TODO list.
 *DONE*
 
 * Basic lexer, parser, interpeter, abstract syntax tree.
-* Lists, numbers, strings, symbols 
+* Lists, numbers, strings, symbols, booleans
 * Comments (;)
 * Quote reader macro (')
 * Eval of quotes
@@ -25,11 +25,10 @@ I'll use this readme file as my TODO list.
 * car, cdr, cons
 * Global and block/local scope
 * Bindings (set!) and identifier resolving (symbol.eval)
+* if conditional
 
 *TODO*
 
-* Booleans
-* Basic flow control (if)
 * Procedure definition (lambda)
 * Top level program structure (incl 'define' procedure)
 * Limit set! to current region, if within lambda, other forms?

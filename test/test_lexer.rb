@@ -70,6 +70,16 @@ class TestLexer < Test::Unit::TestCase
     assert_equal [[:string, "\"one two quot\""]], @lexer.tokenize("\"one two quot\"")
   end
 
+  def test_boolean
+    assert_equal [[:boolean, "#t"]], @lexer.tokenize("#t")
+    assert_equal [[:boolean, "#f"]], @lexer.tokenize("#f")
+  end
+
+  def test_boolean_after_if
+    assert_equal [[:symbol, "if"],[:boolean, "#t"]], @lexer.tokenize("if #t")
+  end
+  
+  
   def test_quote_tick
     assert_equal [[:quote_tick]], @lexer.tokenize("'")
     assert_equal [[:quote_tick],
