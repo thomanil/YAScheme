@@ -55,17 +55,20 @@ CODE
     assert_equal "42", @interpreter.run("(if #t 42 69)")
     assert_equal "69", @interpreter.run("(if #f 42 69)")
   end
-
-  def test_truthiness
-    
-  end
   
   def test_state_preserved_between_each_interpreter_run
-    #todo
+    @interpreter.run("(set! 'foo 42)")   
+    assert_equal "42",  @interpreter.run("foo")    
   end
 
   def test_run_multiple_top_level_expressions
-    #todo
+    definitions = <<CODE
+(set! 'foo 42)
+(set! 'bar 69)
+CODE
+    @interpreter.run(definitions)
+    assert_equal "42",  @interpreter.run("foo")
+    assert_equal "69",  @interpreter.run("bar")
   end
   
   def test_each_run_adds_to_global_ast

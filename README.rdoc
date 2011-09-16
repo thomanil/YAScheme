@@ -23,28 +23,31 @@ I'll use this readme file as my TODO list.
 * Procedure evaluation
 * Can run Yascheme script on specified file or start REPL
 * car, cdr, cons
-* Global and block/local scope
+* Global scope
 * Bindings (set!) and identifier resolving (symbol.eval)
 * if conditional
+* Top level program structure
+* Global memory/scope across multiple invocations to interpreter
 
 *TODO*
 
-* Procedure definition (lambda)
-* Top level program structure (incl 'define' procedure)
-* Limit set! to current region, if within lambda, other forms?
+* 'define' 
 * Loading of library procedures/definitions from external files
-
+* Definition and invocation of procedures (lambda expressions)
 * Closures / lexical scope
+* Local variable define/set!/etc inside lambda, let, let*, letrec, let-syntax, letrec-syntax expressions)
+
 * Macros aka syntactic extensions
-* Backquote character (almost-constant data)  , ,@ 
 * Continuations
 * Tail call optimization
 
+* Quasiquote (and backquote reader macro expansion)
 * Rest of datatypes w. predicates and core procedures: vector, character, port
 * Input, output, ports
-* Impl library procedures in Scheme itself
 
 * Package and publish as proper gem
+* Impl library procedures/syntax in Scheme itself
+
 
 
 == SYNOPSIS 

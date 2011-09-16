@@ -19,7 +19,7 @@ class ListNode < AstNode
   def eval_cdr(argument_nodes)
     rest = argument_nodes[0].eval.children[1..children.length]
     new_list = ListNode.new
-    rest.each { |item|  new_list.add item }
+    rest.each { |item| new_list.add item }
     return new_list
   end
 
