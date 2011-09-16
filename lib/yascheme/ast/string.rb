@@ -8,5 +8,4 @@ class StringNode < AstNode
     node_value
   end
 
-  
 end

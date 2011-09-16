@@ -28,14 +28,14 @@ class Lexer
         tokens.push([:comment, comment])
         skip_ahead comment.length
       elsif(operator = remaining[/\A([\+\-\/\*])/]) #TMP only, remove later
-        tokens.push([:identifier, operator])
+        tokens.push([:symbol, operator])
         skip_ahead operator.length
       elsif(number = remaining[/\A(\d+)/])
         tokens.push([:number, number])
         skip_ahead number.length
-      elsif(identifier = remaining[/\A(\w+)/])
-        tokens.push([:identifier, identifier])
-        skip_ahead identifier.length
+      elsif(symbol = remaining[/\A(\w+)/])
+        tokens.push([:symbol, symbol])
+        skip_ahead symbol.length
       elsif(string = remaining[/\A([\"].*?[\"])/])
         tokens.push([:string, string])
         skip_ahead string.length

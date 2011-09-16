@@ -26,8 +26,8 @@ class Parser
         current_node.add NumberNode.new(value)
       when :boolean
         current_node.add BooleanNode.new
-      when :identifier
-        current_node.add IdentifierNode.new(value)
+      when :symbol
+        current_node.add SymbolNode.new(value)
       when :quote
         current_node.add QuoteNode.new
       when :quote_tick

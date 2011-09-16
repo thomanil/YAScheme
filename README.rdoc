@@ -4,7 +4,7 @@
 
 == DESCRIPTION:
 
-YAScheme - Yet Another Scheme - is a simple Scheme implementation
+YAScheme - Yet Another Scheme - is a simple Scheme interpreter
 built to learn more about Lisp, Ruby and programming language
 construction in general. The implementation targets the R5RS
 standard. We'll see how far I get.
@@ -15,35 +15,34 @@ I'll use this readme file as my TODO list.
 
 *DONE*
 
-* Skeleton of a lexer, parser, interpeter, abstract syntax tree.
-* Lists, numbers, strings, symbols
+* Basic lexer, parser, interpeter, abstract syntax tree.
+* Lists, numbers, strings, symbols 
 * Comments (;)
 * Quote reader macro (')
 * Eval of quotes
+* Procedure evaluation
 
 *TODO*
 
-* car
-* cdr
-* cons
-* type predicates (boolean? symbol? char?...)
+* Basic list primitives (car, cdr, cons)
+* Basic flow control (if)
+* Procedure definition (lambda)
+* Bindings (set!) and symbol/identifier resolving
 
-* OTHER PRIMITIVES?
-* Global scope, block scope, interpreter scoe
+* Environment : global scope, block scope, etc
 * Interface stuff: REPL and file launcher
-* Definitions and variables (define, let, set!...)
-* Function evaluation
-* Function definition (lambda)
-* Flow control (if, cond, etc)
+* Top level program structure (incl 'define' procedure)
+* Loading of library procedures/definitions from external files
+
 * Closures / lexical scope
 * Macros aka syntactic extensions
+* Backquote character (almost-constant data)  , ,@ 
 * Continuations
 * Tail call optimization
 
-* Backquote character (almost-constant data)  , ,@ 
-* Rest of datatypes: vector, boolean, character, port
-
-* (...see how far down the rabbithole I want to go in coverage of the spec)
+* Rest of datatypes w. predicates and procedures: vector, boolean, character, port
+* Input, output, ports
+* Impl library procedures in Scheme itself
 
 
 

@@ -27,7 +27,10 @@ class AstNode
     node_descr = ""
     indentation.times { node_descr.concat "  " }
     node_descr.concat "#{self.class}"
-    node_descr.concat " #{@node_value}\n"
+    if(!@node_value.nil?)
+        node_descr.concat " #{@node_value}"
+    end
+    node_descr.concat "\n"
     if (!children.nil?)
       children.each do |child| 
         node_descr.concat("#{child.internal_structure(indentation+1)}")

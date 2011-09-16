@@ -7,12 +7,12 @@ require "yascheme/interpreter"
 require "yascheme/repl"
 
 require "yascheme/ast/ast"
+require "yascheme/ast/list"
+require "yascheme/ast/quote"
 require "yascheme/ast/string"
 require "yascheme/ast/number"
 require "yascheme/ast/boolean"
-require "yascheme/ast/identifier"
-require "yascheme/ast/list"
-require "yascheme/ast/quote"
+require "yascheme/ast/symbol"
 
 module Yascheme
   VERSION = '0.0.1'
