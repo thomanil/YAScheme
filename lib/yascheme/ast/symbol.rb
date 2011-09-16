@@ -1,8 +1,12 @@
 class SymbolNode < AstNode
   
   def eval(context={})
-    # TODO resolve identifier binding
-      raise "Unresolved identifier '#{@node_value}'"
+    value = lookup node_value
+    if value.nil?
+      raise "Unresolved identifier '#{@node_value}'"  
+    else
+      return value
+    end  
   end
 
   def to_s

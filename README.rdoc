@@ -23,16 +23,17 @@ I'll use this readme file as my TODO list.
 * Procedure evaluation
 * Can run Yascheme script on specified file or start REPL
 * car, cdr, cons
+* Global and block/local scope
 
 *TODO*
 
-* Environment : global scope, block scope, etc
 * Bindings (set!) and identifier resolving (symbol.eval)
-* Procedure definition (lambda)
 * Booleans
 * Basic flow control (if)
+* Procedure definition (lambda)
 
 * Top level program structure (incl 'define' procedure)
+* Limit set! to current region, if within lambda, other forms?
 * Loading of library procedures/definitions from external files
 
 * Closures / lexical scope
@@ -41,7 +42,7 @@ I'll use this readme file as my TODO list.
 * Continuations
 * Tail call optimization
 
-* Rest of datatypes w. predicates and procedures: vector, character, port
+* Rest of datatypes w. predicates and core procedures: vector, character, port
 * Input, output, ports
 * Impl library procedures in Scheme itself
 

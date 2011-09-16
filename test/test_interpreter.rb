@@ -14,7 +14,7 @@ class TestInterpreter < Test::Unit::TestCase
     assert_equal "\"this is a string\"",  @interpreter.run("\"this is a string\"")
   end  
 
-  #def test_boolean
+  #def test_boolean_literal
   #  assert_equal "#t",  @interpreter.run("#t")
   #end
 
@@ -40,22 +40,34 @@ class TestInterpreter < Test::Unit::TestCase
     assert_equal "((1 2) 3)", @interpreter.run("(cons '(1 2) 3)")
     assert_equal "((1) 2 3)", @interpreter.run("(cons '(1) '(2 3))")
   end
+  
+  def test_run_multiple_top_level_expressions
+    #todo
+  end
 
-  def test_operator_should_also_be_evaluated
+  def test_set_expression
+    assert_raise(RuntimeError) { @interpreter.run("foo") }
+
+    def_then_resolve = <<CODE
+(set! 'foo 42)
+foo
+CODE
+     @interpreter.run def_then_resolve
+     puts @interpreter.dump_state
+    assert_equal "42",  @interpreter.run(def_then_resolve)
+  end
+  
+  def test_state_preserved_between_each_interpreter_run
+    #todo
+  end
+  
+  def test_each_run_adds_to_global_ast
+    #todo
+  end
+  
+  def test_list_operator_should_also_be_evaluated
     #todo
     #assert_equal "12",  @interpreter.run("((if #f + *) 3 4)") 
   end
-
-  def test_bound_indentifier
-    # todo
-  end
-  
-  def test_undefined_identifier
-    assert_raise(RuntimeError) { @interpreter.run("non_existant_id") }
-  end   
-
-  
-
-  
 
 end
