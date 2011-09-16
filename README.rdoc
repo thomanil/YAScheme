@@ -19,24 +19,30 @@ I'll use this readme file as my TODO list.
 * Lists, numbers, strings, symbols
 * Comments (;)
 * Quote reader macro (')
+* Eval of quotes
 
 *TODO*
 
-* Proper handling of quotes
-* list processing primitives (car, cdr, cons, etc)
-* Function evaluation 
 * Interface: REPL and file launcher
+
+* car
+* cdr
+* cons
+* OTHER PRIMITIVES?
 * Global scope, block scope
 * Definitions and variables (define, let, set!)
+* Function evaluation
 * Function definition (lambda)
 * Flow control (if, cond, etc)
-* Brackets as parens equivalent
-* Closures, lexical scope
+* Closures / lexical scope
 * Macros aka syntactic extensions
 * Continuations
 * Tail call optimization
+* Brackets as parens equivalent
 * Spec-compliant support for datatypes (vectors #(), booleans #t/#f, etc)
 * (...see how far down the rabbithole I want to go in coverage of the spec)
+
+
 
 == SYNOPSIS 
 
