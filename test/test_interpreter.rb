@@ -26,34 +26,18 @@ class TestInterpreter < Test::Unit::TestCase
     assert_equal "(1 two \"three\")",  @interpreter.run("'(1 two \"three\")")
   end
 
-  def test_invalid_quoted_forms
-    # todo test zero and more than one args
-  end
-
-  def test_valid_car
+  def test_car
     assert_equal "1", @interpreter.run("(car '(1 2 3))")
   end
 
-  def test_invalid_car
-    #todo
-  end
-
-  def test_valid_cdr
+  def test_cdr
     assert_equal "(2 3)", @interpreter.run("(cdr '(1 2 3))")
   end
 
-  def test_invalid_cdr
-    #todo
-  end
-
-  def test_valid_cons
+  def test_cons
     assert_equal "(2 3)", @interpreter.run("(cons 2 3)")
     assert_equal "(2 3)", @interpreter.run("(cons 2 '(3))")
-    #TODO assert_equal "((3 4) 5)", @interpreter.run("(cons '(3 4) 5)")
-  end
-
-  def test_invalid_cons
-    #todo
+    assert_equal "((1 2) 3)", @interpreter.run("(cons '(1 2) 3)")
   end
 
   def test_operator_should_also_be_evaluated

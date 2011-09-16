@@ -5,7 +5,10 @@ class ListNode < AstNode
     procedure_name = first(children).node_value
     args = rest(children)
     evaluated_args = args.map { |argument| argument.eval  }
-        
+
+    # TODO Move these into separate module for core procedures
+    
+    
     case procedure_name
     when "car"
       # todo check # and type of arguments
@@ -23,10 +26,7 @@ class ListNode < AstNode
       # argument must be a list
       arg1 = evaluated_args[0]
       arg2 = evaluated_args[1]
-
-      puts "***"
-      puts self.internal_structure
-      
+   
       if arg2.class == ListNode
         consed_list = arg2
         arg2.children.insert(0, arg1)

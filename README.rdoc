@@ -21,16 +21,15 @@ I'll use this readme file as my TODO list.
 * Quote reader macro (')
 * Eval of quotes
 * Procedure evaluation
+* Can run Yascheme script on specified file or start REPL
 
 *TODO*
 
-* Interface stuff: REPL and file launcher
-
 * Basic list primitives (car, cdr, cons)
-* Booleans
-* Basic flow control (if)
 * Procedure definition (lambda)
 * Bindings (set!) and identifier resolving (symbol.eval)
+* Booleans
+* Basic flow control (if)
 
 * Environment : global scope, block scope, etc
 * Top level program structure (incl 'define' procedure)
@@ -46,6 +45,7 @@ I'll use this readme file as my TODO list.
 * Input, output, ports
 * Impl library procedures in Scheme itself
 
+* Package and publish as proper gem
 
 
 == SYNOPSIS 
