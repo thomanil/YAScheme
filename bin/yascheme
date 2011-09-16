@@ -1,0 +1,31 @@
+#!/usr/bin/env ruby
+ 
+require '../lib/yascheme.rb'
+
+@interpreter = Interpreter.new
+
+def repl
+  puts "YAscheme Repl ready, go ahead and write some Scheme!"
+  while(input = gets)
+    begin
+      puts  @interpreter.run(input)
+    rescue Exception
+      puts "Error: "+$!
+    end
+  end  
+end
+
+
+if  ARGV.count == 0
+  repl
+elsif  ARGV.count == 1
+  path = ARGV[0]
+#  file = File.open(path, "r") 
+  filebody = IO.read(path) 
+  puts @interpreter.run(filebody)
+else
+  puts "Usage:"
+  puts "'yascheme <PATH>' to run scheme program from a file"
+  puts "Or just run 'yascheme' to start the REPL."
+end
+
