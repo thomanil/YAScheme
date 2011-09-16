@@ -22,16 +22,16 @@ I'll use this readme file as my TODO list.
 * Eval of quotes
 * Procedure evaluation
 * Can run Yascheme script on specified file or start REPL
+* car, cdr, cons
 
 *TODO*
 
-* Basic list primitives (car, cdr, cons)
-* Procedure definition (lambda)
+* Environment : global scope, block scope, etc
 * Bindings (set!) and identifier resolving (symbol.eval)
+* Procedure definition (lambda)
 * Booleans
 * Basic flow control (if)
 
-* Environment : global scope, block scope, etc
 * Top level program structure (incl 'define' procedure)
 * Loading of library procedures/definitions from external files
 

@@ -3,12 +3,14 @@ class AstNode
 
   attr_accessor :parent, :children
   attr_accessor :node_value
-  
+  attr_accessor :symbol_table
+
   def initialize(value = nil)
     @node_value = value
     @children = []
+    @symbol_table = {}
   end
-
+  
   def add(child)
     @children.push child
     child.parent = self
@@ -17,7 +19,7 @@ class AstNode
   def [](index)
     @children[index]
   end
-
+  
   def to_s
     children_s = children.map{|child| child.to_s}
     children.join " "
@@ -39,15 +41,17 @@ class AstNode
     end
     return node_descr
   end
-  
+
+  # Iterate over current node and all its descendants
   def each
-    self.walk { |node| yield(node) }
+    self.traverse_down { |node| yield(node) }
   end
 
-  def walk(&block)
+  # Run block on current node and all its descendants recursively
+  def traverse_down(&block)
     block.call(self)
     if(!children.nil?)
-      children.each{ |child| child.walk(&block) }
+      children.each{ |child| child.traverse_down(&block) }
     end
   end
 
@@ -58,8 +62,10 @@ class AstNode
   end
   
   def next_sibling
-    index_of_self = parent.index_of_child(self)
-    next_sibling = parent.children[index_of_self+1]
+    if !root?
+      index_of_self = parent.index_of_child(self)
+      next_sibling = parent[index_of_self+1]
+    end
   end
 
   def index_of_child(node)
@@ -82,7 +88,40 @@ class AstNode
     children[unwanted_pos] = new
   end
 
+  def root?
+    self.parent.nil?
+  end
 
+  # Define variable_name in current node
+  def define_local(variable_name, node)
+    if !node.is_a? AstNode
+      raise "Only Ast nodes can be bound as vars! #{variable_name} is a #{node.class}"
+    end
+    @symbol_table[variable_name] = node
+  end
+  
+  # Define variable_name in top level node
+  def define_global(variable_name, node)
+    define_at(variable_name, node) { |node| node.root? }
+  end
+
+  # Climb up ast tree until block expression becomes true
+  def define_at(variable_name, node, &block)
+    found_destination = yield(self)
+    if(found_destination || root?)
+      define_local variable_name, node
+    else
+      parent.define_at(variable_name, node, &block)
+    end      
+  end
+
+  def lookup(variable_name)
+    looked_up = symbol_table[variable_name]
+    if looked_up.nil? && !root?
+      looked_up = parent.lookup variable_name
+    end
+    return looked_up
+  end
   
 end
 
