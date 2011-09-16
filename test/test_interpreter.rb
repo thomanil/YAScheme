@@ -48,13 +48,11 @@ class TestInterpreter < Test::Unit::TestCase
   def test_set_expression
     assert_raise(RuntimeError) { @interpreter.run("foo") }
 
-    def_then_resolve = <<CODE
+    define_then_resolve = <<CODE
 (set! 'foo 42)
 foo
 CODE
-     @interpreter.run def_then_resolve
-     puts @interpreter.dump_state
-    assert_equal "42",  @interpreter.run(def_then_resolve)
+    assert_equal "42",  @interpreter.run(define_then_resolve)
   end
   
   def test_state_preserved_between_each_interpreter_run

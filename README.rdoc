@@ -24,14 +24,13 @@ I'll use this readme file as my TODO list.
 * Can run Yascheme script on specified file or start REPL
 * car, cdr, cons
 * Global and block/local scope
+* Bindings (set!) and identifier resolving (symbol.eval)
 
 *TODO*
 
-* Bindings (set!) and identifier resolving (symbol.eval)
 * Booleans
 * Basic flow control (if)
 * Procedure definition (lambda)
-
 * Top level program structure (incl 'define' procedure)
 * Limit set! to current region, if within lambda, other forms?
 * Loading of library procedures/definitions from external files
