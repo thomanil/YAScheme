@@ -25,15 +25,14 @@ class TestInterpreter < Test::Unit::TestCase
  def test_eval_quoted_forms
    assert_equal "hello",  @interpreter.run("'hello")
    assert_equal "(1 2)",  @interpreter.run("'(1 2)")
-   # assert_equal [1, [2, 3]],  @interpreter.run("'(1 (2 3))")
-   # assert_equal "(1 two \"three\")",  @interpreter.run("'(1 two \"three\")")
-   # TODO quoted list with all the diff ast types inside
+   assert_equal "(identifier 1 \"string\")", @interpreter.run("'(identifier 1 \"string\")")
+   assert_equal "(1 (2 3))",  @interpreter.run("'(1 (2 3))")
+   assert_equal "(1 two \"three\")",  @interpreter.run("'(1 two \"three\")")
  end  
  
  def test_eval_arithmetic_functions
    assert_equal 2,  @interpreter.run("(+ 1 1)")
    assert_equal 3,  @interpreter.run("(+ 1 1 1)")
-   assert_equal 4,  @interpreter.run("(+ (+ 1 1) (+ 1 1))")
    assert_equal 1,  @interpreter.run("(- 4 3)")
    assert_equal 6,  @interpreter.run("(* 2 3)")
    assert_equal 5,  @interpreter.run("(/ 15 3)")

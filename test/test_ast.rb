@@ -49,7 +49,7 @@ AstNode
   AstNode 
   AstNode 
 TREE
-    assert_equal expected, single_parent_two_children.to_s
+    assert_equal expected, single_parent_two_children.internal_structure
   end
 
   def test_next_sibling

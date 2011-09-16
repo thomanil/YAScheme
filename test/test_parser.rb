@@ -14,7 +14,7 @@ class TestParser < Test::Unit::TestCase
 AstNode 
   ListNode 
 TREE
-    assert_equal expected, ast_node.tree_structure_to_s
+    assert_equal expected, ast_node.internal_structure
   end
   
   def test_flat_list
@@ -27,7 +27,7 @@ AstNode
     IdentifierNode one
     IdentifierNode two
 TREE
-    assert_equal expected, ast_node.tree_structure_to_s
+    assert_equal expected, ast_node.internal_structure
   end
 
   def test_nested_list
@@ -47,7 +47,7 @@ AstNode
     ListNode 
       IdentifierNode "innermost string"
 TREE
-    assert_equal expected, ast_node.tree_structure_to_s
+    assert_equal expected, ast_node.internal_structure
   end
 
   def test_quote_macro_expansion
@@ -59,7 +59,7 @@ AstNode
   QuoteTickNode 
   IdentifierNode one
 TREE
-    assert_equal expected, ast.tree_structure_to_s
+    assert_equal expected, ast.internal_structure
 
     expanded_ast = @parser.expand_reader_macros!(ast)
     expected_expanded =
@@ -69,7 +69,7 @@ AstNode
     IdentifierNode one
 TREE
 
-    assert_equal expected_expanded, expanded_ast.tree_structure_to_s
+    assert_equal expected_expanded, expanded_ast.internal_structure
   end
 
 

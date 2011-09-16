@@ -10,7 +10,7 @@ class AstNode
   end
 
   def add(child)
-     @children.push child
+    @children.push child
     child.parent = self
   end
   
@@ -19,20 +19,21 @@ class AstNode
   end
 
   def to_s
-    tree_structure_to_s
+    children_s = children.map{|child| child.to_s}
+    children.join " "
   end
-  
-  def tree_structure_to_s(indentation=0)
+
+  def internal_structure(indentation=0)
     node_descr = ""
     indentation.times { node_descr.concat "  " }
     node_descr.concat "#{self.class}"
     node_descr.concat " #{@node_value}\n"
     if (!children.nil?)
       children.each do |child| 
-        node_descr.concat("#{child.tree_structure_to_s(indentation+1)}")
+        node_descr.concat("#{child.internal_structure(indentation+1)}")
       end
     end
-     return node_descr
+    return node_descr
   end
   
   def each
@@ -47,9 +48,9 @@ class AstNode
   end
 
   def eval(context={})
-      last_result = nil
-      children.each { |child| last_result = child.eval(context) }
-      return last_result
+    last_result = nil
+    children.each { |child| last_result = child.eval(context) }
+    return last_result
   end
   
   def next_sibling
@@ -71,7 +72,7 @@ class AstNode
     orphan_index = index_of_child(node)
     children.slice!(orphan_index)
   end
- 
+  
 
 
   
