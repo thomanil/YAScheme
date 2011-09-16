@@ -23,14 +23,15 @@ I'll use this readme file as my TODO list.
 
 *TODO*
 
-* Interface: REPL and file launcher
-
 * car
 * cdr
 * cons
+* type predicates (boolean? symbol? char?...)
+
 * OTHER PRIMITIVES?
-* Global scope, block scope
-* Definitions and variables (define, let, set!)
+* Global scope, block scope, interpreter scoe
+* Interface stuff: REPL and file launcher
+* Definitions and variables (define, let, set!...)
 * Function evaluation
 * Function definition (lambda)
 * Flow control (if, cond, etc)
@@ -38,8 +39,10 @@ I'll use this readme file as my TODO list.
 * Macros aka syntactic extensions
 * Continuations
 * Tail call optimization
-* Brackets as parens equivalent
-* Spec-compliant support for datatypes (vectors #(), booleans #t/#f, etc)
+
+* Backquote character (almost-constant data)  , ,@ 
+* Rest of datatypes: vector, boolean, character, port
+
 * (...see how far down the rabbithole I want to go in coverage of the spec)
 
 

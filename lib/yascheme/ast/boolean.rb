@@ -1,7 +1,7 @@
 class BooleanNode < AstNode
   
   def eval(context={})
-    return #{@node_value}
+    return self
   end
 
   def to_s

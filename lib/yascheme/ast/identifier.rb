@@ -1,7 +1,7 @@
 class IdentifierNode < AstNode
   
   def eval(context={})
-    # TODO resolve identifier
+    # TODO resolve identifier binding
       raise "Unresolved identifier '#{@node_value}'"
   end
 

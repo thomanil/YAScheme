@@ -1,7 +1,7 @@
 class NumberNode < AstNode
   
   def eval(context={})
-    return "#{@node_value}"
+    self
   end
 
   def to_s

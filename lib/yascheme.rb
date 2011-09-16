@@ -13,8 +13,6 @@ require "yascheme/ast/boolean"
 require "yascheme/ast/identifier"
 require "yascheme/ast/list"
 require "yascheme/ast/quote"
-require "yascheme/ast/quotetick"
-
 
 module Yascheme
   VERSION = '0.0.1'

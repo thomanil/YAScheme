@@ -30,10 +30,11 @@ class Parser
         current_node.add IdentifierNode.new(value)
       when :quote
         current_node.add QuoteNode.new
+      when :quote_tick
+        current_node.add AstNode.new("'")
       else
-        current_node.add QuoteTickNode.new
+        raise "Unknown token '#{type}', aborting parsing."
       end
-
     end
 
     return root
@@ -46,7 +47,7 @@ class Parser
   end
 
   def expand_quotes(tree)
-    quote_nodes = tree.select { |node| node.class == QuoteTickNode  }
+    quote_nodes = tree.select { |node| node.node_value == "'"  }
     quote_nodes.each do |tick|
       expanded_node = QuoteNode.new
       expanded_node.add(tick.next_sibling)

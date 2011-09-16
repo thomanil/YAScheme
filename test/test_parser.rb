@@ -56,7 +56,7 @@ TREE
     expected =
 <<TREE
 AstNode 
-  QuoteTickNode 
+  AstNode '
   IdentifierNode one
 TREE
     assert_equal expected, ast.internal_structure
