@@ -55,6 +55,7 @@ class AstNode
     end
   end
 
+  # TODO do we need this context object? if not then delete in all signatures
   def eval(context={})
     last_result = nil
     children.each { |child| last_result = child.eval(context) }
