@@ -38,7 +38,7 @@ class TestInterpreter < Test::Unit::TestCase
     assert_equal "(2 3)", @interpreter.run("(cons 2 3)")
     assert_equal "(2 3)", @interpreter.run("(cons 2 '(3))")
     assert_equal "((1 2) 3)", @interpreter.run("(cons '(1 2) 3)")
-    assert_equal "((1) (2 3))", @interpreter.run("(cons '(1) '(2 3))")
+    assert_equal "((1) 2 3)", @interpreter.run("(cons '(1) '(2 3))")
   end
 
   def test_operator_should_also_be_evaluated
