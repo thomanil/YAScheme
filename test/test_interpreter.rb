@@ -71,13 +71,10 @@ CODE
     assert_equal "69",  @interpreter.run("bar")
   end
   
-  def test_each_run_adds_to_global_ast
-    #todo
-  end
-  
   def test_list_operator_should_also_be_evaluated
-    #todo
-    #assert_equal "12",  @interpreter.run("((if #f + *) 3 4)") 
+    @interpreter.run("(set! 'foo 'set!)")   
+    @interpreter.run("((if #f + foo) bar 69)")
+    assert_equal "69", @interpreter.run("bar")
   end
 
 end

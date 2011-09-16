@@ -42,7 +42,7 @@ I'll use this readme file as my TODO list.
 * Tail call optimization
 
 * Quasiquote (and backquote reader macro expansion)
-* Rest of datatypes w. predicates and core procedures: vector, character, port
+* Rest of datatypes w. predicates / core procedures: vector, character, port
 * Input, output, ports
 
 * Package and publish as proper gem

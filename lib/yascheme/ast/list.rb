@@ -2,7 +2,15 @@ class ListNode < AstNode
 
   # List eval = "run this list as a function"
   def eval(context={})
-    procedure_name = children[0].node_value #first
+    procedure_name = children[0]
+
+    # Procedure name can itself be a list/procedure
+    if procedure_name.class == ListNode
+      procedure_name = procedure_name.eval.node_value
+    else
+      procedure_name = procedure_name.node_value
+    end
+    
     argument_nodes =  children[1..children.length] #rest
     delegated_method = "eval_#{procedure_name}"
     if self.respond_to? delegated_method
@@ -59,8 +67,8 @@ class ListNode < AstNode
   end
 
   def eval_procedure_invocation(argument_nodes)
-       # TODO call actual function definiton in scope
-      raise "Function '#{procedure_name}' undefined"
+    # TODO call actual function definiton in scope
+    raise "Function '#{procedure_name}' undefined"
   end
   
   def to_s
