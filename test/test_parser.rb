@@ -11,8 +11,8 @@ class TestParser < Test::Unit::TestCase
     ast_node = @parser.ast_tree(tokens)
     expected =
 <<TREE
-AstNode
-  ListNode
+Ast
+  List
 TREE
     assert_equal expected, ast_node.internal_structure
   end
@@ -22,10 +22,10 @@ TREE
     ast_node = @parser.ast_tree(tokens)
     expected =
 <<TREE
-AstNode
-  ListNode
-    SymbolNode one
-    SymbolNode two
+Ast
+  List
+    Symbol one
+    Symbol two
 TREE
     assert_equal expected, ast_node.internal_structure
   end
@@ -40,12 +40,12 @@ TREE
     ast_node = @parser.ast_tree(tokens)
     expected =
 <<TREE
-AstNode
-  ListNode
-    SymbolNode outer
-    SymbolNode another
-    ListNode
-      SymbolNode "innermost string"
+Ast
+  List
+    Symbol outer
+    Symbol another
+    List
+      Symbol "innermost string"
 TREE
     assert_equal expected, ast_node.internal_structure
   end
@@ -55,18 +55,18 @@ TREE
     ast = @parser.into_tree(tokens) 
     expected =
 <<TREE
-AstNode
-  AstNode '
-  SymbolNode one
+Ast
+  Ast '
+  Symbol one
 TREE
     assert_equal expected, ast.internal_structure
 
     expanded_ast = @parser.expand_reader_macros!(ast)
     expected_expanded =
 <<TREE
-AstNode
-  QuoteNode
-    SymbolNode one
+Ast
+  Quote
+    Symbol one
 TREE
 
     assert_equal expected_expanded, expanded_ast.internal_structure

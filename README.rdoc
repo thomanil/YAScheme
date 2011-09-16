@@ -24,13 +24,15 @@ I'll use this readme file as my TODO list.
 
 *TODO*
 
+* Interface stuff: REPL and file launcher
+
 * Basic list primitives (car, cdr, cons)
+* Booleans
 * Basic flow control (if)
 * Procedure definition (lambda)
-* Bindings (set!) and symbol/identifier resolving
+* Bindings (set!) and identifier resolving (symbol.eval)
 
 * Environment : global scope, block scope, etc
-* Interface stuff: REPL and file launcher
 * Top level program structure (incl 'define' procedure)
 * Loading of library procedures/definitions from external files
 
@@ -40,7 +42,7 @@ I'll use this readme file as my TODO list.
 * Continuations
 * Tail call optimization
 
-* Rest of datatypes w. predicates and procedures: vector, boolean, character, port
+* Rest of datatypes w. predicates and procedures: vector, character, port
 * Input, output, ports
 * Impl library procedures in Scheme itself
 

@@ -26,7 +26,8 @@ class AstNode
   def internal_structure(indentation=0)
     node_descr = ""
     indentation.times { node_descr.concat "  " }
-    node_descr.concat "#{self.class}"
+    description = self.class.to_s.gsub("Node", "")
+    node_descr.concat "#{description}"
     if(!@node_value.nil?)
         node_descr.concat " #{@node_value}"
     end

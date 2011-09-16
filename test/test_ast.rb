@@ -45,9 +45,9 @@ class TestAst < Test::Unit::TestCase
   def test_tree_tostring
     expected =
 <<TREE
-AstNode
-  AstNode
-  AstNode
+Ast
+  Ast
+  Ast
 TREE
     assert_equal expected, single_parent_two_children.internal_structure
   end

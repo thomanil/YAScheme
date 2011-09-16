@@ -39,7 +39,7 @@ class TestInterpreter < Test::Unit::TestCase
   end
 
   def test_valid_cdr
-    #assert_equal "(2 3)", @interpreter.run("(cdr '(1 2 3))")
+    assert_equal "(2 3)", @interpreter.run("(cdr '(1 2 3))")
   end
 
   def test_invalid_cdr
@@ -47,7 +47,9 @@ class TestInterpreter < Test::Unit::TestCase
   end
 
   def test_valid_cons
-    #assert_equal "1", @interpreter.run("(cons 1 '(2 3))")
+    assert_equal "(2 3)", @interpreter.run("(cons 2 3)")
+    assert_equal "(2 3)", @interpreter.run("(cons 2 '(3))")
+    #TODO assert_equal "((3 4) 5)", @interpreter.run("(cons '(3 4) 5)")
   end
 
   def test_invalid_cons
