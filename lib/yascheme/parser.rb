@@ -47,14 +47,14 @@ class Parser
   end
 
   def expand_quotes(tree)
-    quote_nodes = tree.select { |node| node.node_value == "'"  }
-    quote_nodes.each do |tick|
+    tick_nodes = tree.select { |node| node.node_value == "'"  }
+    tick_nodes.each do |tick|
+      parent = tick.parent 
       expanded_node = QuoteNode.new
-      expanded_node.add(tick.next_sibling)
-      parent = tick.parent
-      parent.remove_child(tick.next_sibling)
-      parent.remove_child(tick)
-      parent.add(expanded_node)
+      quoted_element = tick.next_sibling
+      expanded_node.add quoted_element
+      parent.remove_child quoted_element
+      parent.replace_child tick, expanded_node
     end
   end
 

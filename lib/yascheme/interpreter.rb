@@ -8,7 +8,7 @@ class Interpreter
   def run(code)
     tokens = @lexer.tokenize(code)
     ast_tree = @parser.ast_tree(tokens)
-    dump_state tokens, ast_tree    
+    #dump_state tokens, ast_tree
     last_value = ast_tree.eval
     last_value.to_s
   end

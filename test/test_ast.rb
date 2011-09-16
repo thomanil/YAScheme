@@ -68,5 +68,14 @@ TREE
     assert_equal tree[0], child2
     assert_equal 1, tree.children.count
   end
+
+  def test_replace_child
+    tree = single_parent_two_children
+    unwanted = tree[0]
+    replacement = AstNode.new
+    tree.replace_child unwanted, replacement
+    assert_equal tree[0], replacement
+  end
+  
   
 end

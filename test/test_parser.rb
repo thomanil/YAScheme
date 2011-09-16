@@ -51,13 +51,14 @@ TREE
   end
 
   def test_quote_macro_expansion
-    tokens = [[:quote_tick],[:symbol, "one"]]
+    tokens = [[:quote_tick],[:symbol, "one"],[:symbol, "two"]]
     ast = @parser.into_tree(tokens) 
     expected =
 <<TREE
 Ast
   Ast '
   Symbol one
+  Symbol two
 TREE
     assert_equal expected, ast.internal_structure
 
@@ -67,10 +68,13 @@ TREE
 Ast
   Quote
     Symbol one
+  Symbol two
 TREE
 
     assert_equal expected_expanded, expanded_ast.internal_structure
   end
+
+  
 
 
 end

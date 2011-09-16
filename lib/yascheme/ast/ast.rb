@@ -76,7 +76,11 @@ class AstNode
     orphan_index = index_of_child(node)
     children.slice!(orphan_index)
   end
-  
+
+  def replace_child(unwanted, new)
+    unwanted_pos = index_of_child unwanted
+    children[unwanted_pos] = new
+  end
 
 
   
