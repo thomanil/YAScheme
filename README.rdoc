@@ -46,7 +46,7 @@ I'll use this readme file as my TODO list.
 
 * Package and publish as proper gem
 * Impl library procedures/syntax in Scheme itself
-
+* Way better error handling, validation, diagnostics
 
 
 == SYNOPSIS 

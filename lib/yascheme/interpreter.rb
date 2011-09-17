@@ -29,7 +29,7 @@ class Interpreter
   end
 
   def load_libraries
-    filepath = File.dirname(__FILE__) + '/libraries/libraries.scm'
+    filepath = File.dirname(__FILE__) + '/scheme_code/core.scm'
     filebody = IO.read(filepath)
     run(filebody)
   end
