@@ -42,7 +42,9 @@ module PrimitiveProcedures
 
   end
 
-
+  # QUASIQUOTATION
+  # quasiquote
+  
   # EQUIVALENCE PREDICATES
   # eqv?
   # eq?
@@ -164,6 +166,8 @@ module PrimitiveProcedures
   # values
   # call-with-values
   # dynamic-wind
+
+  # EVAL
   # eval
   # null-environment
 
