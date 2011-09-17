@@ -5,16 +5,20 @@
 # (YAScheme defines the rest of itself in  ./scheme_code/library_procedures.scm)
 module PrimitiveProcedures
 
+  # Define variable
   def eval_set!(argument_nodes)
     variable_name = argument_nodes[0].to_s
     value = argument_nodes[1].eval
     define_global variable_name, value
   end
 
+  # Equvivalent with set!
   def eval_define(argument_nodes)
     eval_set! argument_nodes
   end
 
+  # If first argument is true, eval second argument. Otherwise eval
+  # third argument.
   def eval_if(argument_nodes)
     test_result = argument_nodes[0].eval
     if test_result.true?
@@ -24,14 +28,27 @@ module PrimitiveProcedures
     end
   end
 
+  # Creates and returns lambda expression
   def eval_lambda(argument_nodes)
-    # (lambda (formal params)(body))
-    raise "not impl yet"
+    param_node_list = argument_nodes[0]
+    body_node_list = argument_nodes[1]
+    lambda_node = LambdaNode.new param_node_list, body_node_list
   end
 
-  def eval_procedure_invocation(procedure_name, argument_nodes)
-    # TODO call actual function definiton in scope
-    raise "Function '#{procedure_name}' undefined"
+  # Finds named procedure in scope and executes it with given arguments 
+  def eval_lambda_invocation(procedure, argument_nodes)
+    if procedure.class == LambdaNode # inline procedure
+      inline_procedure = procedure
+      procedure.eval
+    else # named procedure
+      procedure_name = procedure
+      lookedup_lambda = lookup procedure_name
+      if lookedup_lambda.nil?
+        raise "Procedure '#{procedure_name}' undefined"
+      else
+        lookedup_lambda.eval
+      end
+    end    
   end
 
   def eval_let_syntax

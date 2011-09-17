@@ -76,7 +76,6 @@ class TestLexer < Test::Unit::TestCase
   end
 
   def test_symbol_can_contain_hyphens
-    puts "arrgh"
     assert_equal [[:symbol, "hyphenated-symbol"]], @lexer.tokenize("hyphenated-symbol")
   end
 

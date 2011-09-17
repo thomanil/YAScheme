@@ -121,10 +121,5 @@ TREE
     assert_equal false, BooleanNode.new("#f").true?
     assert_raise(RuntimeError) { BooleanNode.new("invalid").true? }              
   end
-
-  def test_lambda_to_s
-    lambda_node = LambdaNode.new
-    assert_equal "(lambda ()())", lambda_node.to_s
-  end
   
 end

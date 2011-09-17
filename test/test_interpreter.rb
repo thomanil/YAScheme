@@ -91,4 +91,43 @@ CODE
     assert_equal "5", @interpreter.run("scheme-report-version")
   end
 
+  def test_lambda_definition
+    assert_equal "#<procedure>", @interpreter.run("(lambda()(()))")
+  end
+
+  def test_inline_lambda_def_and_call
+    def_and_call = "((lambda ()(scheme-report-version)))"
+    assert_equal "5", @interpreter.run(def_and_call)    
+  end
+
+  def test_define_name_and_call_lambda
+    defined_car_proxy_procedure = <<CODE
+(define car-proxy
+  (lambda ()
+    (car '(42 69))))
+
+(car-proxy)
+CODE
+    assert_equal "42", @interpreter.run(defined_car_proxy_procedure) 
+  end
+
+
+  def test_inline_lambda_def_and_call_with_arguments
+    inline_car_proxy_procedure = "((lambda (l)(car l)) '(42 69))"
+    #assert_equal "42", @interpreter.run(def_and_call) 
+  end
+
+ 
+  def test_define_name_and_call_lambda_with_arguments
+    defined_car_proxy_procedure = <<CODE
+(define car-proxy
+  (lambda (l)
+    (car l)))
+
+(car-proxy '(42 69))
+CODE
+    #assert_equal "42", @interpreter.run(def_and_call) 
+  end
+  
+  
 end
