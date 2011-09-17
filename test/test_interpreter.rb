@@ -134,9 +134,15 @@ CODE
     assert_equal "200", @interpreter.run(defined_car_proxy_procedure) 
   end
 
-  # def test_call_lambda_with_non_matching_params
-  #   #TODO
-  # end
+  def test_call_lambda_with_non_matching_params
+     def_and_call = <<CODE
+(define one-param-proc
+  (lambda (l)
+    (car l)))
+(one-param-proc 3 4)
+CODE
+     assert_raise(RuntimeError) { @interpreter.run(def_and_call) }
+  end
 
   # def test_define_and_use_inner_lambda
   #   #TODO
