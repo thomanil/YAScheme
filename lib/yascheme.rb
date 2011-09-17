@@ -13,6 +13,8 @@ require "yascheme/ast/string_node"
 require "yascheme/ast/number_node"
 require "yascheme/ast/boolean_node"
 require "yascheme/ast/symbol_node"
+require "yascheme/ast/lambda_node"
+
 
 module Yascheme
   VERSION = '0.0.1'

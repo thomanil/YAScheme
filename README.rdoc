@@ -36,17 +36,18 @@ I'll use this readme file as my TODO list.
 * Invoke lambda/procedure
 * Closures / lexical scope
 * Local variable define/set!/etc inside lambda, let, let*, letrec, let-syntax, letrec-syntax expressions)
-
 * Macros aka syntactic extensions
+
+* Quasiquote (and backquote reader macro expansion)
+* Rest of datatypes w. their core procedures: vector, character, port
+* Core procedures for input, output
+
 * Continuations
 * Tail call optimization
 
-* Quasiquote (and backquote reader macro expansion)
-* Rest of datatypes w. predicates / core procedures: vector, character, port
-* Input, output, ports
-
-* Package and publish as proper gem
+* Impl rest of primitive procedures
 * Impl library procedures/syntax in Scheme itself
+* Package and publish as proper gem
 * Way better error handling, validation, diagnostics
 
 
