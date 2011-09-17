@@ -142,11 +142,35 @@ CODE
 (one-param-proc 3 4)
 CODE
      assert_raise(RuntimeError) { @interpreter.run(def_and_call) }
-  end
+   end
 
-  # def test_define_and_use_inner_lambda
-  #   #TODO
-  # end
+   def test_lambda_multiple_expr_in_body
+     multiple_inner = <<CODE
+(define multiple
+  (lambda ()
+    (define foo 123)
+    (define foo 345)
+    foo))
+
+(multiple)
+CODE
+     assert_equal "345", @interpreter.run(multiple_inner) 
+   end
+
+ #  def test_define_and_call_inner_proc
+#     def_proc_with_inner_proc = <<CODE
+# (define outer-proc
+#   (lambda ()
+#     (define inner-proc
+#       (lambda ()
+#         111
+#         ))
+#     (inner-proc)))
+
+# (outer-proc)
+# CODE
+#     assert_equal "111", @interpreter.run(def_proc_with_inner_proc)     
+#   end
   
   # def test_inner_lambdas_should_not_be_visible_globally
   #   #TODO

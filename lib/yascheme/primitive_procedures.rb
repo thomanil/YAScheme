@@ -33,14 +33,14 @@ module PrimitiveProcedures
     param_node_list = argument_nodes[0]
     param_names = param_node_list.map { |node| node.node_value }
     param_names = param_names.reject { |name| name.nil? }
-    body_node_list = argument_nodes[1]
+    body_node_list = argument_nodes[1..argument_nodes.length]
     LambdaNode.new param_names, body_node_list
   end
 
   # Finds named procedure in scope and executes it with given arguments 
   def eval_call_lambda(proc_name, argument_nodes, context)     
-    proc_name_name = proc_name
-    lookedup_lambda = context.lookup proc_name_name
+    proc_name = proc_name
+    lookedup_lambda = context.lookup proc_name
     if lookedup_lambda.nil?
       raise "Proc_Name '#{proc_name}' undefined"
     else

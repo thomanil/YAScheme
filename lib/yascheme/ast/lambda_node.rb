@@ -15,7 +15,9 @@ class LambdaNode < AstNode
   def call_with_arguments(arguments, context)
     validate_calling_arguments arguments
     bind_parameters arguments, context
-    body_list_node.eval context
+    last_result = nil
+    body_list_node.each { |expression| last_result = expression.eval context}
+    return last_result
   end
 
   def validate_calling_arguments(arguments)
