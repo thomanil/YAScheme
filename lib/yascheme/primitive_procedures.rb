@@ -1,9 +1,9 @@
 # These are the procedures/forms that are cannot be expressed in Scheme
 # itself. The rest of the language is what the R5RS spec calls
 # "library" syntax/procedures, and can be defined/self-hosted in the
-# scheme language itself given these core underlying procedures.
-# (YAScheme defines the rest of itself in  ./scheme_code/libraries.scm)
-module CoreProcedures
+# scheme language itself given these underlying primitive procedures.
+# (YAScheme defines the rest of itself in  ./scheme_code/library_procedures.scm)
+module PrimitiveProcedures
 
   def eval_set!(argument_nodes)
     variable_name = argument_nodes[0].to_s

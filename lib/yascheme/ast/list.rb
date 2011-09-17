@@ -1,5 +1,5 @@
 class ListNode < AstNode
-  include PrimitiveProcedures  
+  include PrimitiveProcedures
 
   # List eval = "run this list as a function"
   def eval(context={})
