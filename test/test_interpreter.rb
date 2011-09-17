@@ -44,13 +44,23 @@ class TestInterpreter < Test::Unit::TestCase
   def test_set_expression
     assert_raise(RuntimeError) { @interpreter.run("foo") }
 
-    define_then_resolve = <<CODE
+    set_then_resolve = <<CODE
 (set! 'foo 42)
+foo
+CODE
+    assert_equal "42",  @interpreter.run(set_then_resolve)
+  end
+
+  def test_define_expressions_essentially_same_as_set_exp
+    assert_raise(RuntimeError) { @interpreter.run("foo") }
+
+    define_then_resolve = <<CODE
+(define 'foo 42)
 foo
 CODE
     assert_equal "42",  @interpreter.run(define_then_resolve)
   end
-
+  
   def test_if_statement   
     assert_equal "42", @interpreter.run("(if #t 42 69)")
     assert_equal "69", @interpreter.run("(if #f 42 69)")

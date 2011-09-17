@@ -24,14 +24,13 @@ I'll use this readme file as my TODO list.
 * Can run Yascheme script on specified file or start REPL
 * car, cdr, cons
 * Global scope
-* Bindings (set!) and identifier resolving (symbol.eval)
+* Bindings (set!, define) and variable resolving in symbol eval
 * if conditional
 * Top level program structure
 * Global memory/scope across multiple invocations to interpreter
 
 *TODO*
 
-* 'define' 
 * Loading of library procedures/definitions from external files
 * Definition and invocation of procedures (lambda expressions)
 * Closures / lexical scope

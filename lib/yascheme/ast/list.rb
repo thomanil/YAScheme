@@ -20,6 +20,9 @@ class ListNode < AstNode
     end
   end
 
+  # TODO delegate everything to CoreProcedures module?
+  # (can delegate car, cdr, cons etc back here)
+
   def eval_car(argument_nodes)
     return argument_nodes[0].eval.children.first
   end
@@ -52,6 +55,10 @@ class ListNode < AstNode
     define_global variable_name, value
   end
 
+  def eval_define(argument_nodes)
+    eval_set! argument_nodes
+  end
+
   def eval_lambda(argument_nodes)
     # (lambda (formal params)(body))
     raise "not impl yet"
@@ -66,7 +73,7 @@ class ListNode < AstNode
     end
   end
 
-  def eval_procedure_invocation(argument_nodes)
+  def eval_procedure_invocation(procedure_name, argument_nodes)
     # TODO call actual function definiton in scope
     raise "Function '#{procedure_name}' undefined"
   end
