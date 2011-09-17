@@ -3,9 +3,13 @@ class ListNode < AstNode
 
   # List eval = "run this list as a function"
   def eval(context=self)
-    procedure_name = eval_first_element children[0], context
-    argument_nodes =  children[1..children.length] #rest
-    primitive_procedure_call procedure_name, argument_nodes, context
+    procedure = eval_first_element children[0], context
+    arguments  = children[1..children.length]
+    if procedure.class == LambdaNode
+      procedure.call_with_arguments arguments, context
+    else
+      primitive_procedure_call procedure, arguments, context
+    end
   end
 
   def primitive_procedure_call(name, argument_nodes, context)
@@ -22,7 +26,6 @@ class ListNode < AstNode
     else
       first_element = first_element.node_value
     end
-    procedure_name = first_element
   end
   
   def to_s

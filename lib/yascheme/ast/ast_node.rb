@@ -56,8 +56,10 @@ class AstNode
   end
   
   def eval(context=self)
-    last_result = nil
-    children.each { |child| last_result = child.eval(context) }
+    last_result = nil    
+    children.each do |child|
+      last_result = child.eval(context)
+    end
     return last_result
   end
   

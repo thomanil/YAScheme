@@ -95,29 +95,36 @@ CODE
     assert_equal "#<procedure>", @interpreter.run("(lambda()20)")
   end
 
-  # def test_inline_lambda_def_and_call
-  #   @interpreter.run "(define baz 12)"
-  #   def_and_call = "((lambda () baz))"    
-  #   assert_equal "12", @interpreter.run(def_and_call)
-  # end
+  def test_inline_lambda_call
+    assert_equal "20", @interpreter.run("((lambda()20))")
+  end
 
-#   def test_define_and_call_lambda
-#     defined_car_proxy_procedure = <<CODE
-# (define car-proxy
-#   (lambda ()
-#     (car '(42 69))))
+  def test_inline_lambda_call_to_definition
+    def_and_call = <<CODE
+(define baz 12)
+((lambda () baz))
+CODE
+    assert_equal "12", @interpreter.run(def_and_call)
+  end
 
-# (car-proxy)
-# CODE
-#     assert_equal "42", @interpreter.run(defined_car_proxy_procedure) 
-#   end
+  
+  def test_define_and_call_lambda
+    defined_car_proxy_procedure = <<CODE
+(define car-proxy
+  (lambda ()
+    (car '(42 69))))
 
-#   def test_inline_lambda_def_and_call_with_argument
-#     inline_call_with_argument  = "((lambda (l)(car l)) '(42 69))"
-#     #assert_equal "42", @interpreter.run(inline_call_with_argument) 
-#   end
+(car-proxy)
+CODE
+    assert_equal "42", @interpreter.run(defined_car_proxy_procedure) 
+  end
 
-#   def test_define_and_call_lambda_with_arguments
+  def test_inline_lambda_def_and_call_with_argument
+    inline_call_with_argument  = "((lambda (l)(car l)) '(42 69))"
+    #assert_equal "42", @interpreter.run(inline_call_with_argument) 
+  end
+
+  # def test_define_and_call_lambda_with_arguments
 #     defined_car_proxy_procedure = <<CODE
 # (define car-proxy
 #   (lambda (l)
@@ -125,7 +132,7 @@ CODE
 
 # (car-proxy '(42 69))
 # CODE
-#     assert_equal "42", @interpreter.run(def_and_call) 
+#     assert_equal "42", @interpreter.run(defined_car_proxy_procedure) 
 #   end
 
   # def test_call_lambda_with_non_matching_params
