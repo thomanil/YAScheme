@@ -9,6 +9,14 @@ built to learn more about Lisp, Ruby and programming language
 construction in general. The implementation targets the R5RS
 standard. We'll see how far I get.
 
+== USAGE:
+
+Not packaged/published as a proper gem yet.
+For now, run it by navigating to /bin and calling either
+
+1) 'ruby yascheme' to start REPL or
+2) 'ruby yascheme <FILEPATH>' to run scheme code from file
+
 == FEATURES/PROBLEMS:
 
 I'll use this readme file as my TODO list.
@@ -26,18 +34,17 @@ I'll use this readme file as my TODO list.
 * Global scope
 * Bindings (set!, define) and variable resolving in symbol eval
 * if conditional
-* Top level program structure
+* Top level/global program structure
 * Global memory/scope across multiple invocations to interpreter
-* Loading library definitions from external file
+* Loading library procedures from external scheme source code
 
 *TODO*
 
-* Define lambda/procedure
-* Invoke lambda/procedure
+* Define and invoke lambda/procedure
 * Closures / lexical scope
-* Local variable define/set!/etc inside lambda, let, let*, letrec, let-syntax, letrec-syntax expressions)
 * Macros aka syntactic extensions
 
+* Limit scope of variable def when inside lambda, let, let*, letrec, let-syntax, letrec-syntax
 * Quasiquote (and backquote reader macro expansion)
 * Rest of datatypes w. their core procedures: vector, character, port
 * Core procedures for input, output
@@ -50,10 +57,6 @@ I'll use this readme file as my TODO list.
 * Package and publish as proper gem
 * Way better error handling, validation, diagnostics
 
-
-== SYNOPSIS 
-
-TODO
 
 == REQUIREMENTS:
 

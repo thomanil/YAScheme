@@ -31,22 +31,24 @@ module PrimitiveProcedures
   # Creates and returns lambda expression
   def eval_lambda(argument_nodes)
     param_node_list = argument_nodes[0]
+    param_names = param_node_list.map { |node| node.node_value }
+    param_names = param_names.reject { |name| name.nil? }
     body_node_list = argument_nodes[1]
     lambda_node = LambdaNode.new param_node_list, body_node_list
   end
 
   # Finds named procedure in scope and executes it with given arguments 
-  def eval_lambda_invocation(procedure, argument_nodes)
+  def eval_lambda_invocation(procedure, argument_nodes)    
     if procedure.class == LambdaNode # inline procedure
       inline_procedure = procedure
-      procedure.eval
+      procedure.call_with_arguments argument_nodes
     else # named procedure
       procedure_name = procedure
       lookedup_lambda = lookup procedure_name
       if lookedup_lambda.nil?
         raise "Procedure '#{procedure_name}' undefined"
       else
-        lookedup_lambda.eval
+        lookedup_lambda.call_with_arguments argument_nodes #send current arguments
       end
     end    
   end
