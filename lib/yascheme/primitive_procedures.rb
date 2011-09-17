@@ -40,20 +40,14 @@ module PrimitiveProcedures
   end
 
   # Finds named procedure in scope and executes it with given arguments 
-  def eval_lambda_invocation(procedure, argument_nodes, context) 
-    # TODO move inline or named decision up to dispatch method in list
-    if procedure.class == LambdaNode # inline procedure
-      inline_procedure = procedure
-      procedure.call_with_arguments argument_nodes
-    else # named procedure
-      procedure_name = procedure
-      lookedup_lambda = context.lookup procedure_name
-      if lookedup_lambda.nil?
-        raise "Procedure '#{procedure_name}' undefined"
-      else
-        lookedup_lambda.call_with_arguments argument_nodes #send current arguments
-      end
-    end    
+  def eval_call_lambda(proc_name, argument_nodes, context)     
+    proc_name_name = proc_name
+    lookedup_lambda = context.lookup proc_name_name
+    if lookedup_lambda.nil?
+      raise "Proc_Name '#{proc_name}' undefined"
+    else
+      lookedup_lambda.call_with_arguments argument_nodes, context
+    end
   end
 
   def eval_let_syntax

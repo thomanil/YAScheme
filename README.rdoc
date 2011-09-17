@@ -42,6 +42,7 @@ I'll use this readme file as my TODO list.
 
 * Define and invoke lambda/procedure
 * Closures / lexical scope
+
 * Macros aka syntactic extensions
 
 * Limit scope of variable def when inside lambda, let, let*, letrec, let-syntax, letrec-syntax

@@ -95,53 +95,53 @@ CODE
     assert_equal "#<procedure>", @interpreter.run("(lambda()20)")
   end
 
-  def test_inline_lambda_def_and_call
-    @interpreter.run "(define baz 12)"
-    def_and_call = "((lambda () baz))"    
-    assert_equal "12", @interpreter.run(def_and_call)
-  end
+  # def test_inline_lambda_def_and_call
+  #   @interpreter.run "(define baz 12)"
+  #   def_and_call = "((lambda () baz))"    
+  #   assert_equal "12", @interpreter.run(def_and_call)
+  # end
 
-  def test_define_and_call_lambda
-    defined_car_proxy_procedure = <<CODE
-(define car-proxy
-  (lambda ()
-    (car '(42 69))))
+#   def test_define_and_call_lambda
+#     defined_car_proxy_procedure = <<CODE
+# (define car-proxy
+#   (lambda ()
+#     (car '(42 69))))
 
-(car-proxy)
-CODE
-    assert_equal "42", @interpreter.run(defined_car_proxy_procedure) 
-  end
+# (car-proxy)
+# CODE
+#     assert_equal "42", @interpreter.run(defined_car_proxy_procedure) 
+#   end
 
-  def test_inline_lambda_def_and_call_with_argument
-    inline_call_with_argument  = "((lambda (l)(car l)) '(42 69))"
-    #assert_equal "42", @interpreter.run(inline_call_with_argument) 
-  end
+#   def test_inline_lambda_def_and_call_with_argument
+#     inline_call_with_argument  = "((lambda (l)(car l)) '(42 69))"
+#     #assert_equal "42", @interpreter.run(inline_call_with_argument) 
+#   end
 
-  def test_define_and_call_lambda_with_arguments
-    defined_car_proxy_procedure = <<CODE
-(define car-proxy
-  (lambda (l)
-    (car l)))
+#   def test_define_and_call_lambda_with_arguments
+#     defined_car_proxy_procedure = <<CODE
+# (define car-proxy
+#   (lambda (l)
+#     (car l)))
 
-(car-proxy '(42 69))
-CODE
-    #assert_equal "42", @interpreter.run(def_and_call) 
-  end
+# (car-proxy '(42 69))
+# CODE
+#     assert_equal "42", @interpreter.run(def_and_call) 
+#   end
 
-  def test_call_lambda_with_non_matching_params
-    #TODO
-  end
+  # def test_call_lambda_with_non_matching_params
+  #   #TODO
+  # end
 
-  def test_define_and_use_inner_lambda
-    #TODO
-  end
+  # def test_define_and_use_inner_lambda
+  #   #TODO
+  # end
   
-  def test_inner_lambdas_should_not_be_visible_globally
-    #TODO
-  end
+  # def test_inner_lambdas_should_not_be_visible_globally
+  #   #TODO
+  # end
 
-  def test_closure_lexical_scope
-    #TODO
-  end
+  # def test_closure_lexical_scope
+  #   #TODO
+  # end
   
 end
