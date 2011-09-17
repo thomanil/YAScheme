@@ -1,18 +1,18 @@
 $:.unshift(File.dirname(__FILE__)) unless
   $:.include?(File.dirname(__FILE__)) || $:.include?(File.expand_path(File.dirname(__FILE__)))
 
+require "yascheme/core_procedures"
 require "yascheme/lexer"
 require "yascheme/parser"
 require "yascheme/interpreter"
-require "yascheme/repl"
 
-require "yascheme/ast/ast"
-require "yascheme/ast/list"
-require "yascheme/ast/quote"
-require "yascheme/ast/string"
-require "yascheme/ast/number"
-require "yascheme/ast/boolean"
-require "yascheme/ast/symbol"
+require "yascheme/ast/ast_node"
+require "yascheme/ast/list_node"
+require "yascheme/ast/quote_node"
+require "yascheme/ast/string_node"
+require "yascheme/ast/number_node"
+require "yascheme/ast/boolean_node"
+require "yascheme/ast/symbol_node"
 
 module Yascheme
   VERSION = '0.0.1'

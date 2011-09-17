@@ -32,7 +32,8 @@ I'll use this readme file as my TODO list.
 
 *TODO*
 
-* Definition and invocation of procedures (lambda expressions)
+* Define lambda/procedure
+* Invoke lambda/procedure
 * Closures / lexical scope
 * Local variable define/set!/etc inside lambda, let, let*, letrec, let-syntax, letrec-syntax expressions)
 
