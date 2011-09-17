@@ -92,12 +92,13 @@ CODE
   end
 
   def test_lambda_definition
-    assert_equal "#<procedure>", @interpreter.run("(lambda()(()))")
+    assert_equal "#<procedure>", @interpreter.run("(lambda()20)")
   end
 
   def test_inline_lambda_def_and_call
-    def_and_call = "((lambda () scheme-report-version))"
-    assert_equal "5", @interpreter.run(def_and_call)
+    @interpreter.run "(define baz 12)"
+    def_and_call = "((lambda () baz))"    
+    assert_equal "12", @interpreter.run(def_and_call)
   end
 
   def test_define_and_call_lambda
@@ -136,6 +137,10 @@ CODE
   end
   
   def test_inner_lambdas_should_not_be_visible_globally
+    #TODO
+  end
+
+  def test_closure_lexical_scope
     #TODO
   end
   

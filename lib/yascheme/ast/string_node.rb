@@ -1,6 +1,6 @@
 class StringNode < AstNode
   
-  def eval(context={})
+  def eval(context=self)
     self
   end
 

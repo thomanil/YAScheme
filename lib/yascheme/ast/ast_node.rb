@@ -54,9 +54,8 @@ class AstNode
       children.each{ |child| child.traverse_down(&block) }
     end
   end
-
-  # TODO do we need this context object? if not then delete in all signatures
-  def eval(context={})
+  
+  def eval(context=self)
     last_result = nil
     children.each { |child| last_result = child.eval(context) }
     return last_result
@@ -122,6 +121,16 @@ class AstNode
       looked_up = parent.lookup variable_name
     end
     return looked_up
+  end
+
+  def internal_scope()
+    symbol_table_dump = symbol_table.map { |pair| "#{pair[0]}:#{pair[1]}"  }.join(", ")
+    self_scope = "#{self.class} scope: #{symbol_table_dump}\n"
+    if root?
+      "\n(ROOT)"+self_scope
+    else
+      parent.internal_scope + self_scope
+    end
   end
   
 end

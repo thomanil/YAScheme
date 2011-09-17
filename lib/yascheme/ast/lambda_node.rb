@@ -8,8 +8,8 @@ class LambdaNode < AstNode
     @body_list_node = body
   end
   
-  def eval(context={})
-    body_list_node.eval
+  def eval(context=self)
+    self.call_with_arguments context
   end
 
   def call_with_arguments(arguments)
@@ -21,9 +21,7 @@ class LambdaNode < AstNode
       define_local(@expected_argument_names[i], argument_value)
     end
 
-    # todo evals should take an ast as context, updatede everywhere?
-    # looking up values should happen both in current and called context
-    body_list_node.eval
+    body_list_node.eval self
   end
 
   def to_s
@@ -31,3 +29,5 @@ class LambdaNode < AstNode
   end
   
 end
+
+

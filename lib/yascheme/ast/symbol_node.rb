@@ -1,7 +1,7 @@
 class SymbolNode < AstNode
   
-  def eval(context={})
-    value = lookup node_value
+  def eval(context=self)
+    value = context.lookup node_value
     if value.nil?
       raise "Unresolved identifier '#{@node_value}'"  
     else

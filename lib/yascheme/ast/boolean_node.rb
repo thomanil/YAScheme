@@ -1,6 +1,6 @@
 class BooleanNode < AstNode
   
-  def eval(context={})
+  def eval(context=self)
     return self
   end
 
