@@ -36,7 +36,7 @@ class Lexer
       elsif(boolean = remaining[/\A(\#t|\#f)/])
         tokens.push([:boolean, boolean])
         skip_ahead boolean.length
-      elsif(symbol = remaining[/\A(\w+\!?\??)/])
+      elsif(symbol = remaining[/\A([\w-]+\!?\??)/])
         tokens.push([:symbol, symbol])
         skip_ahead symbol.length
       elsif(string = remaining[/\A([\"].*?[\"])/])
@@ -44,8 +44,7 @@ class Lexer
         skip_ahead string.length
       else
         skip_ahead 1
-      end
-      
+      end   
     end
     
     return tokens

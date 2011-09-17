@@ -8,7 +8,11 @@ def repl
   puts "YAscheme Repl ready, go ahead and write some Scheme!"
   while(input = gets)
     begin
-      puts  @interpreter.run(input)
+      if input.chomp == "dump"
+        puts @interpreter.dump_state
+      else
+        puts  @interpreter.run(input)
+      end
     rescue Exception
       puts "Error: "+$!
     end

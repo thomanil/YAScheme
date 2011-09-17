@@ -75,13 +75,19 @@ class TestLexer < Test::Unit::TestCase
     assert_equal [[:boolean, "#f"]], @lexer.tokenize("#f")
   end
 
+  def test_symbol_can_contain_hyphens
+    puts "arrgh"
+    assert_equal [[:symbol, "hyphenated-symbol"]], @lexer.tokenize("hyphenated-symbol")
+  end
+
   def test_boolean_after_if
     assert_equal [[:symbol, "if"],[:boolean, "#t"]], @lexer.tokenize("if #t")
   end
-  
-  
+
   def test_quote_tick
     assert_equal [[:quote_tick]], @lexer.tokenize("'")
+    assert_equal [[:quote_tick],
+                  [:symbol, "quoted"]], @lexer.tokenize("'quoted")
     assert_equal [[:quote_tick],
                   [:open_paren],
                   [:symbol, "quoted"],
@@ -93,9 +99,9 @@ class TestLexer < Test::Unit::TestCase
     assert_equal [[:open_paren],
                   [:symbol, "quote"],
                   [:open_paren],
-                  [:symbol, "quoted"],
+                  [:symbol, "quote"],
                   [:close_paren],
-                  [:close_paren]],  @lexer.tokenize("(quote(quoted))")
+                  [:close_paren]],  @lexer.tokenize("(quote(quote))")
   end
 
   def test_comment

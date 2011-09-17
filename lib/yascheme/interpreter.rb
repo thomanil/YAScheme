@@ -5,7 +5,7 @@ class Interpreter
     @lexer = Lexer.new
     @parser = Parser.new
     @global_env = AstNode.new
-    # TODO load and eval "library, optional" bits of scheme code from here
+    load_libraries
   end
 
   def run(code)
@@ -26,5 +26,11 @@ class Interpreter
     puts "----------------------"
     puts "PROGRAM DUMP END"
     puts "----------------------"
+  end
+
+  def load_libraries
+    filepath = File.dirname(__FILE__) + '/libraries/libraries.scm'
+    filebody = IO.read(filepath)
+    run(filebody)
   end
 end

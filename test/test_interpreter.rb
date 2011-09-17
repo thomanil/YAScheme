@@ -87,4 +87,8 @@ CODE
     assert_equal "69", @interpreter.run("bar")
   end
 
+  def test_library_file_loaded
+    assert_equal "5", @interpreter.run("scheme-report-version")
+  end
+
 end

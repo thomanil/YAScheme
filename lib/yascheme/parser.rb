@@ -30,6 +30,8 @@ class Parser
         current_node.add SymbolNode.new(value)
       when :quote
         current_node.add QuoteNode.new
+      when :comment
+         # Filtering out comments
       when :quote_tick
         current_node.add AstNode.new("'")
       else

@@ -16,6 +16,18 @@ Ast
 TREE
     assert_equal expected, ast_node.internal_structure
   end
+
+  def test_single_symbol
+     tokens = [[:open_paren],[:symbol, "undefined-identifier"],[:close_paren]]
+    ast_node = @parser.ast_tree(tokens)
+    expected =
+<<TREE
+Ast
+  List
+    Symbol undefined-identifier
+TREE
+    assert_equal expected, ast_node.internal_structure
+  end
   
   def test_flat_list
     tokens = [[:open_paren],[:symbol, "one"],[:symbol, "two"],[:close_paren]]
