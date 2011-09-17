@@ -34,7 +34,68 @@ module CoreProcedures
     raise "Function '#{procedure_name}' undefined"
   end
 
-  # Lists
+  def eval_let_syntax
+    
+  end
+
+  def eval_letrec_syntax
+
+  end
+
+
+  # EQUIVALENCE PREDICATES
+  # eqv?
+  # eq?
+  
+  # NUMBERS
+  # number?
+  # complex?
+  # real?
+  # rational?
+  # integer?
+  # exact?
+  # inexact?
+  # =
+  # <
+  # >
+  # <=
+  # >=
+  # +
+  # *
+  # - a b
+  # - a
+  # / a b
+  # / a
+  # quotient
+  # remainder
+  # modulo
+  # numerator
+  # denominator
+  # floor
+  # ceiling
+  # truncate
+  # round
+  # sqrt
+  # expt
+  # make-rectangular
+  # make-polar
+  # real-part
+  # imag-part
+  # magnitude
+  # angle
+  # exact->inexact
+  # inexact->exact
+  # number->string a
+  # number->string a radix
+  # string->number a
+  # string->number a radix
+
+  # BOOLEANS
+  # (only library procedures) 
+  
+  # LISTS AND PAIRS
+
+  # pair?
 
   def eval_car(argument_nodes)
     argument_nodes[0].eval.children.first
@@ -61,6 +122,72 @@ module CoreProcedures
       return consed_list
     end
   end
+
+  # set-cat!
+  # set-cdr!
+
   
+  # SYMBOLS
+  # symbol?
+  # symbol->string
+  # string->symbol
+
+  # CHARACTERS
+  # char?
+  # char=?
+  # char<?
+  # char>?
+  # char>=?
+  # char<=?
+  # char->integer
+  # integer->char
+  
+  # STRINGS
+  # string?
+  # make-string k
+  # make-string k char
+  # string-length
+  # string-ref
+  # string-set!
+
+  # VECTORS
+  # vector?
+  # make-vector k 
+  # make-vector k fill
+  # vector-length
+  # vector-ref
+
+  # CONTROL FEATURES
+  # procedure?
+  # apply
+  # call-with-current-continuation
+  # values
+  # call-with-values
+  # dynamic-wind
+  # eval
+  # null-environment
+
+  # INPUT AND OUTPUT
+  # call-with-input-file
+  # call-with-output-file
+  # input-port?
+  # output-port?
+  # current-input-port
+  # current-output-port
+  # open-input-file
+  # open-output-file
+  # close-input-port
+  # close-output-port
+  # read-char
+  # read-char port
+  # peek-char
+  # peek-char port
+  # eof-object?
+  # char-ready?
+  # char-ready? port
+  # write-char char
+  # write-char char port
+  # load-filename
+
   
 end
