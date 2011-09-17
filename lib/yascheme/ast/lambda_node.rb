@@ -14,6 +14,7 @@ class LambdaNode < AstNode
 
   def call_with_arguments(arguments, context)
     validate_calling_arguments arguments
+    bind_parameters arguments, context
     body_list_node.eval context
   end
 
@@ -23,9 +24,10 @@ class LambdaNode < AstNode
     end
   end
 
-  def bind_parameters(arguments)
+  def bind_parameters(arguments, context)
     arguments.each_with_index do |argument_value, i|
-      define_local(@expected_argument_names[i], argument_value)
+      evaluated_argument = argument_value.eval context
+      context.define_local(@expected_argument_names[i], evaluated_argument)
     end
   end
 

@@ -44,6 +44,7 @@ module PrimitiveProcedures
     if lookedup_lambda.nil?
       raise "Proc_Name '#{proc_name}' undefined"
     else
+      puts "Executing #{proc_name} with #{argument_nodes.to_s}"
       lookedup_lambda.call_with_arguments argument_nodes, context
     end
   end

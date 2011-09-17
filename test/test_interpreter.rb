@@ -107,33 +107,32 @@ CODE
     assert_equal "12", @interpreter.run(def_and_call)
   end
 
+  def test_inline_lambda_def_and_call_with_argument
+    inline_call_with_argument  = "((lambda (l)(car l)) '(50 100))"
+    assert_equal "50", @interpreter.run(inline_call_with_argument) 
+  end
   
   def test_define_and_call_lambda
     defined_car_proxy_procedure = <<CODE
-(define car-proxy
+(define car-proxy-no-params
   (lambda ()
     (car '(42 69))))
 
-(car-proxy)
+(car-proxy-no-params)
 CODE
     assert_equal "42", @interpreter.run(defined_car_proxy_procedure) 
   end
 
-  def test_inline_lambda_def_and_call_with_argument
-    inline_call_with_argument  = "((lambda (l)(car l)) '(42 69))"
-    #assert_equal "42", @interpreter.run(inline_call_with_argument) 
+  def test_define_and_call_lambda_with_arguments
+    defined_car_proxy_procedure = <<CODE
+(define car-proxy
+  (lambda (l)
+    (car l)))
+
+(car-proxy '(200 400))
+CODE
+    assert_equal "200", @interpreter.run(defined_car_proxy_procedure) 
   end
-
-  # def test_define_and_call_lambda_with_arguments
-#     defined_car_proxy_procedure = <<CODE
-# (define car-proxy
-#   (lambda (l)
-#     (car l)))
-
-# (car-proxy '(42 69))
-# CODE
-#     assert_equal "42", @interpreter.run(defined_car_proxy_procedure) 
-#   end
 
   # def test_call_lambda_with_non_matching_params
   #   #TODO
