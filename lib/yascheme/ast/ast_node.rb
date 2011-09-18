@@ -19,10 +19,11 @@ class AstNode
   end
   
   def to_s
-    children_s = children.map{|child| child.to_s}
-    children.join " "
+    children.map{|child| child.to_s}.join " "
   end
 
+  # Get a string representation of the ast using initially called node
+  # as root.
   def internal_structure(indentation=0)
     node_descr = ""
     indentation.times { node_descr.concat "  " }
@@ -53,7 +54,7 @@ class AstNode
     end
   end
   
-  def eval(scope=Scope.new)
+  def eval(scope)
     last_result = nil    
     children.each do |child|
       last_result = child.eval(scope)

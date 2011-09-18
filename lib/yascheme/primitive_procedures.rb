@@ -8,7 +8,7 @@ module PrimitiveProcedures
   # Define variable
   def eval_set!(argument_nodes, scope)
     variable_name = argument_nodes[0].to_s
-    value = argument_nodes[1].eval    
+    value = argument_nodes[1].eval scope
     scope.define_local variable_name, value
   end
 
@@ -19,12 +19,12 @@ module PrimitiveProcedures
 
   # If first argument is true, eval second argument. Otherwise eval
   # third argument.
-  def eval_if(argument_nodes, scope)
-    test_result = argument_nodes[0].eval
+  def eval_if(argument_nodes, scope)        
+    test_result = argument_nodes[0]
     if test_result.true?
-      return argument_nodes[1].eval
+      return argument_nodes[1].eval scope
     else
-      return argument_nodes[2].eval
+      return argument_nodes[2].eval scope
     end
   end
 

@@ -1,14 +1,10 @@
 class ListNode < AstNode
   include PrimitiveProcedures  
 
-  def eval(scope=Scope.new)
+  def eval(scope)
     arguments  = children[1..children.length]
     procedure = eval_first_element children[0], scope
-    if procedure.class == LambdaNode
-      procedure.call_with_arguments arguments, scope
-    else
-      primitive_procedure_call procedure, arguments, scope
-    end
+    primitive_procedure_call procedure, arguments, scope
   end
 
   def eval_first_element(first_element, scope)

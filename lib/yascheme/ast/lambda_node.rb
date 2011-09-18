@@ -8,7 +8,7 @@ class LambdaNode < AstNode
     @body_list_node = body
   end
   
-  def eval(scope=Scope.new)
+  def eval(scope)
     self
   end
 

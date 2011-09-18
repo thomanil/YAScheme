@@ -87,19 +87,19 @@ CODE
     assert_equal "69",  @interpreter.run("bar")
   end
   
-  # def test_list_operator_should_also_be_evaluated
-  #   @interpreter.run("(set! 'foo 'set!)")   
-  #   @interpreter.run("((if #f + foo) bar 69)")
-  #   assert_equal "69", @interpreter.run("bar")
-  # end
+  def test_list_operator_should_also_be_evaluated
+    @interpreter.run("(set! 'foo 'set!)")   
+    @interpreter.run("((if #f + foo) bar 69)")
+    assert_equal "69", @interpreter.run("bar")
+  end
 
-  #   def test_lambda_definition
-  #     assert_equal "#<procedure>", @interpreter.run("(lambda()20)")
-  #   end
+    def test_lambda_definition
+      assert_equal "#<procedure>", @interpreter.run("(lambda()20)")
+    end
 
-  #   def test_inline_lambda_call
-  #     assert_equal "20", @interpreter.run("((lambda()20))")
-  #   end
+    def test_inline_lambda_call
+      assert_equal "20", @interpreter.run("((lambda()20))")
+    end
 
   #   def test_inline_lambda_call_to_definition
   #     def_and_call = <<CODE
