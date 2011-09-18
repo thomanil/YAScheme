@@ -46,7 +46,6 @@ module PrimitiveProcedures
   end
 
   def lookup_procedure proc_name, scope
-      proc_name = proc
       lookedup_lambda = scope.lookup proc_name
       if lookedup_lambda.nil?
         raise "Proc_Name '#{proc_name}' undefined"
