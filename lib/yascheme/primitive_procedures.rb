@@ -6,20 +6,20 @@
 module PrimitiveProcedures
 
   # Define variable
-  def eval_set!(argument_nodes, context)
+  def eval_set!(argument_nodes, scope)
     variable_name = argument_nodes[0].to_s
     value = argument_nodes[1].eval    
-    define_global variable_name, value
+    scope.define_local variable_name, value
   end
 
   # Equvivalent with set!
-  def eval_define(argument_nodes, context)
-    eval_set! argument_nodes, context
+  def eval_define(argument_nodes, scope)
+    eval_set! argument_nodes, scope
   end
 
   # If first argument is true, eval second argument. Otherwise eval
   # third argument.
-  def eval_if(argument_nodes, context)
+  def eval_if(argument_nodes, scope)
     test_result = argument_nodes[0].eval
     if test_result.true?
       return argument_nodes[1].eval
@@ -29,7 +29,7 @@ module PrimitiveProcedures
   end
 
   # Creates and returns lambda expression
-  def eval_lambda(argument_nodes, context)
+  def eval_lambda(argument_nodes, scope)
     param_node_list = argument_nodes[0]
     param_names = param_node_list.map { |node| node.node_value }
     param_names = param_names.reject { |name| name.nil? }
@@ -38,13 +38,13 @@ module PrimitiveProcedures
   end
 
   # Finds named procedure in scope and executes it with given arguments 
-  def eval_call_lambda(proc_name, argument_nodes, context)     
+  def eval_call_lambda(proc_name, argument_nodes, scope)     
     proc_name = proc_name
-    lookedup_lambda = context.lookup proc_name
+    lookedup_lambda = scope.lookup proc_name
     if lookedup_lambda.nil?
       raise "Proc_Name '#{proc_name}' undefined"
     else
-      lookedup_lambda.call_with_arguments argument_nodes, context
+      lookedup_lambda.call_with_arguments argument_nodes, scope
     end
   end
 
@@ -113,20 +113,20 @@ module PrimitiveProcedures
 
   # pair?
 
-  def eval_car(argument_nodes, context)
-    argument_nodes[0].eval(context).children.first
+  def eval_car(argument_nodes, scope)
+    argument_nodes[0].eval(scope).children.first
   end
 
-  def eval_cdr(argument_nodes, context)
-    rest = argument_nodes[0].eval(context).children[1..children.length]
+  def eval_cdr(argument_nodes, scope)
+    rest = argument_nodes[0].eval(scope).children[1..children.length]
     new_list = ListNode.new
     rest.each { |item| new_list.add item }
     return new_list
   end
 
-  def eval_cons(argument_nodes, context)
-    arg1 = argument_nodes[0].eval(context)
-    arg2 = argument_nodes[1].eval(context)
+  def eval_cons(argument_nodes, scope)
+    arg1 = argument_nodes[0].eval(scope)
+    arg2 = argument_nodes[1].eval(scope)
     if arg2.class == ListNode
       consed_list = arg2
       arg2.children.insert(0, arg1)

@@ -76,46 +76,7 @@ TREE
     tree.replace_child unwanted, replacement
     assert_equal tree[0], replacement
   end
-  
-  def test_only_ast_nodes_allowed_as_values
-    tree = single_parent_two_children
-    assert_raise(RuntimeError) { tree.define_local "bad-var", "not an ast node"  }
-  end
-  
-  def test_define_local_variable
-    tree = single_parent_two_children
-    string_node = StringNode.new("42")
-    tree.define_local "foo", string_node 
-    assert_equal string_node, tree.symbol_table["foo"]
-  end
-
-  def test_define_global_variable
-    tree = single_parent_two_children
-    child = tree[0]
-    string_node = StringNode.new("42")
-    child.define_global "foo", string_node
-    assert_equal nil, child.symbol_table["foo"]
-    assert_equal string_node, tree.symbol_table["foo"]
-  end
-  
-  def test_local_lookup
-    tree = single_parent_two_children
-    child = tree[0]
-    string_node = StringNode.new("42")
-    child.symbol_table["foo"] = string_node
-    assert_equal nil, tree.lookup("foo")
-    assert_equal string_node, child.lookup("foo")
-  end
-
-  def test_global_lookup
-    tree = single_parent_two_children
-    child = tree[0]
-    string_node = StringNode.new("42")
-    tree.symbol_table["foo"] = string_node
-    assert_equal string_node, tree.lookup("foo")
-    assert_equal string_node, child.lookup("foo")
-  end
-
+    
   def test_boolean_ast_truthiness
     assert_equal true, BooleanNode.new("#t").true?
     assert_equal false, BooleanNode.new("#f").true?

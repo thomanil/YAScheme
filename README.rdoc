@@ -41,8 +41,9 @@ I'll use this readme file as my TODO list.
 
 *TODO*
 
-* Local scope for lambdas
-* Closures / lexical scope
+* Refactor eval api, list & ast evaluation. Simpler model, no empty children, etc
+* Local scope where applicable
+* Closures
 
 * Macros aka syntactic extensions
 

@@ -8,16 +8,15 @@ class LambdaNode < AstNode
     @body_list_node = body
   end
   
-  def eval(context=self)
+  def eval(scope=Scope.new)
     self
   end
 
-  def call_with_arguments(arguments, context)
-    self.parent = context # Hooking this node into global context
+  def call_with_arguments(arguments, scope)
     validate_calling_arguments arguments
-    bind_parameters arguments, self # Sending lambda as context
+    bind_parameters arguments, scope
     last_result = nil
-    body_list_node.each { |expression| last_result = expression.eval self}
+    body_list_node.each { |expression| last_result = expression.eval scope}
     return last_result
   end
 
@@ -27,9 +26,9 @@ class LambdaNode < AstNode
     end
   end
 
-  def bind_parameters(arguments, context)
+  def bind_parameters(arguments, scope)
     arguments.each_with_index do |argument_value, i|
-      evaluated_argument = argument_value.eval context
+      evaluated_argument = argument_value.eval scope
       context.define_local(@expected_argument_names[i], evaluated_argument)
     end
   end

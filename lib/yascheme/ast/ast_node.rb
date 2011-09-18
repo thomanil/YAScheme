@@ -3,12 +3,10 @@ class AstNode
 
   attr_accessor :parent, :children
   attr_accessor :node_value
-  attr_accessor :symbol_table
 
   def initialize(value = nil)
     @node_value = value
     @children = []
-    @symbol_table = {}
   end
   
   def add(child)
@@ -55,10 +53,10 @@ class AstNode
     end
   end
   
-  def eval(context=self)
+  def eval(scope=Scope.new)
     last_result = nil    
     children.each do |child|
-      last_result = child.eval(context)
+      last_result = child.eval(scope)
     end
     return last_result
   end
@@ -92,48 +90,6 @@ class AstNode
 
   def root?
     self.parent.nil?
-  end
-
-  # Define variable_name in current node
-  def define_local(variable_name, node)
-    if !node.is_a? AstNode
-      raise "Only Ast nodes can be bound as vars! #{variable_name} is a #{node.class}"
-    end
-    @symbol_table[variable_name] = node
-  end
-  
-  # Define variable_name in top level node
-  def define_global(variable_name, node)
-    define_at(variable_name, node) { |node| node.root? }
-  end
-
-  # Climb up ast tree until block expression becomes true
-  def define_at(variable_name, node, &block)
-    found_destination = yield(self)
-    if(found_destination || root?)
-      define_local variable_name, node
-    else
-      parent.define_at(variable_name, node, &block)
-    end      
-  end
-
-  def lookup(variable_name)
-    looked_up = symbol_table[variable_name]
-    if looked_up.nil? && !root?
-      looked_up = parent.lookup variable_name
-    end
-    return looked_up
-  end
-
-  def internal_scope()
-    symbol_table_dump = symbol_table.map { |pair| "#{pair[0]}:#{pair[1]}"  }.join(", ")
-    self_scope = "#{self.class} scope: #{symbol_table_dump}\n"
-    if root?
-      "\n(ROOT)"+self_scope
-    else
-      parent.internal_scope + self_scope
-    end
-  end
-  
+  end  
 end
 

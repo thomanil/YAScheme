@@ -1,9 +1,9 @@
 class SymbolNode < AstNode
   
-  def eval(context=self)
-    value = context.lookup node_value
+  def eval(scope=Scope.new)
+    value = scope.lookup node_value
     if value.nil?
-      raise "Unresolved identifier '#{@node_value}'"  
+      raise "Unresolved identifier '#{node_value}', no such thing in scope!"  
     else
       return value
     end  

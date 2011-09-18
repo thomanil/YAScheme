@@ -5,6 +5,8 @@ require "yascheme/primitive_procedures"
 require "yascheme/lexer"
 require "yascheme/parser"
 require "yascheme/interpreter"
+require "yascheme/scope"
+
 
 require "yascheme/ast/ast_node"
 require "yascheme/ast/list_node"

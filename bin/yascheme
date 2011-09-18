@@ -3,6 +3,7 @@
 require '../lib/yascheme.rb'
 
 @interpreter = Interpreter.new
+@interpreter.load_libraries
 
 def repl
   puts "YAscheme Repl ready, go ahead and write some Scheme!"

@@ -25,7 +25,13 @@ class TestInterpreter < Test::Unit::TestCase
     assert_equal "(1 (2 3))",  @interpreter.run("'(1 (2 3))")
     assert_equal "(1 two \"three\")",  @interpreter.run("'(1 two \"three\")")
   end
- 
+  
+  def test_load_library_file
+    assert_raise(RuntimeError) { @interpreter.run("scheme-report-version") }
+    @interpreter.load_libraries
+    assert_equal "5", @interpreter.run("scheme-report-version")
+  end
+  
   def test_car
     assert_equal "1", @interpreter.run("(car '(1 2 3))")
   end
@@ -45,8 +51,8 @@ class TestInterpreter < Test::Unit::TestCase
     assert_raise(RuntimeError) { @interpreter.run("foo") }
 
     set_then_resolve = <<CODE
-(set! 'foo 42)
-foo
+ (set! 'foo 42)
+ foo
 CODE
     assert_equal "42",  @interpreter.run(set_then_resolve)
   end
@@ -81,114 +87,110 @@ CODE
     assert_equal "69",  @interpreter.run("bar")
   end
   
-  def test_list_operator_should_also_be_evaluated
-    @interpreter.run("(set! 'foo 'set!)")   
-    @interpreter.run("((if #f + foo) bar 69)")
-    assert_equal "69", @interpreter.run("bar")
-  end
+  # def test_list_operator_should_also_be_evaluated
+  #   @interpreter.run("(set! 'foo 'set!)")   
+  #   @interpreter.run("((if #f + foo) bar 69)")
+  #   assert_equal "69", @interpreter.run("bar")
+  # end
 
-  def test_library_file_loaded
-    assert_equal "5", @interpreter.run("scheme-report-version")
-  end
+  #   def test_lambda_definition
+  #     assert_equal "#<procedure>", @interpreter.run("(lambda()20)")
+  #   end
 
-  def test_lambda_definition
-    assert_equal "#<procedure>", @interpreter.run("(lambda()20)")
-  end
+  #   def test_inline_lambda_call
+  #     assert_equal "20", @interpreter.run("((lambda()20))")
+  #   end
 
-  def test_inline_lambda_call
-    assert_equal "20", @interpreter.run("((lambda()20))")
-  end
+  #   def test_inline_lambda_call_to_definition
+  #     def_and_call = <<CODE
+  # (define baz 12)
+  # ((lambda () baz))
+  # CODE
+  #     assert_equal "12", @interpreter.run(def_and_call)
+  #   end
 
-  def test_inline_lambda_call_to_definition
-    def_and_call = <<CODE
-(define baz 12)
-((lambda () baz))
-CODE
-    assert_equal "12", @interpreter.run(def_and_call)
-  end
-
-  def test_inline_lambda_def_and_call_with_argument
-    inline_call_with_argument  = "((lambda (l)(car l)) '(50 100))"
-    assert_equal "50", @interpreter.run(inline_call_with_argument) 
-  end
+  #   def test_inline_lambda_def_and_call_with_argument
+  #     inline_call_with_argument  = "((lambda (l)(car l)) '(50 100))"
+  #     assert_equal "50", @interpreter.run(inline_call_with_argument) 
+  #   end
   
-  def test_define_and_call_lambda
-    defined_car_proxy_procedure = <<CODE
-(define car-proxy-no-params
-  (lambda ()
-    (car '(42 69))))
+  #   def test_define_and_call_lambda
+  #     defined_car_proxy_procedure = <<CODE
+  # (define car-proxy-no-params
+  #   (lambda ()
+  #     (car '(42 69))))
 
-(car-proxy-no-params)
-CODE
-    assert_equal "42", @interpreter.run(defined_car_proxy_procedure) 
-  end
+  # (car-proxy-no-params)
+  # CODE
+  #     assert_equal "42", @interpreter.run(defined_car_proxy_procedure) 
+  #   end
 
-  def test_define_and_call_lambda_with_arguments
-    defined_car_proxy_procedure = <<CODE
-(define car-proxy
-  (lambda (l)
-    (car l)))
+  #   def test_define_and_call_lambda_with_arguments
+  #     defined_car_proxy_procedure = <<CODE
+  # (define car-proxy
+  #   (lambda (l)
+  #     (car l)))
 
-(car-proxy '(200 400))
-CODE
-    assert_equal "200", @interpreter.run(defined_car_proxy_procedure) 
-  end
+  # (car-proxy '(200 400))
+  # CODE
+  #     assert_equal "200", @interpreter.run(defined_car_proxy_procedure) 
+  #   end
 
-  def test_call_lambda_with_non_matching_params
-     def_and_call = <<CODE
-(define one-param-proc
-  (lambda (l)
-    (car l)))
-(one-param-proc 3 4)
-CODE
-     assert_raise(RuntimeError) { @interpreter.run(def_and_call) }
-   end
+  #   def test_call_lambda_with_non_matching_params
+  #      def_and_call = <<CODE
+  # (define one-param-proc
+  #   (lambda (l)
+  #     (car l)))
+  # (one-param-proc 3 4)
+  # CODE
+  #      assert_raise(RuntimeError) { @interpreter.run(def_and_call) }
+  #    end
 
-   def test_lambda_multiple_expr_in_body
-     multiple_inner = <<CODE
-(define multiple
-  (lambda ()
-    (define foo 123)
-    (define foo 345)
-    foo))
+  #    def test_lambda_multiple_expr_in_body
+  #      multiple_inner = <<CODE
+  # (define multiple
+  #   (lambda ()
+  #     (define foo 123)
+  #     (define foo 345)
+  #     foo))
 
-(multiple)
-CODE
-     assert_equal "345", @interpreter.run(multiple_inner) 
-   end
+  # (multiple)
+  # CODE
+  #      assert_equal "345", @interpreter.run(multiple_inner) 
+  #    end
 
- def test_define_and_call_inner_proc
-    def_proc_with_inner_proc = <<CODE
-(define outer-proc
-  (lambda ()
-    (define inner-proc
-      (lambda ()
-        111
-        ))
-    (inner-proc)))
+  #  def test_define_and_call_inner_proc
+  #     def_proc_with_inner_proc = <<CODE
+  # (define outer-proc
+  #   (lambda ()
+  #     (define inner-proc
+  #       (lambda ()
+  #         111
+  #         ))
+  #     (inner-proc)))
 
-(outer-proc)
-CODE
-    assert_equal "111", @interpreter.run(def_proc_with_inner_proc)     
-  end
+  # (outer-proc)
+  # CODE
+  #     assert_equal "111", @interpreter.run(def_proc_with_inner_proc)     
+  #   end
   
- #  def test_inner_lambdas_should_not_be_visible_globally
-#     def_proc_with_inner_proc = <<CODE
-# (define outer-proc
-#   (lambda ()
-#     (define inner-proc
-#       (lambda ()
-#         111
-#         ))
-#     (inner-proc)))
-# (outer-proc)
-# (inner-proc)
-# CODE
-#     assert_raise(RuntimeError) { @interpreter.run(def_proc_with_inner_proc) }
-#   end
+  #  def test_inner_lambdas_should_not_be_visible_globally
+  #     def_proc_with_inner_proc = <<CODE
+  # (define outer-proc
+  #   (lambda ()
+  #     (define inner-proc
+  #       (lambda ()
+  #         111
+  #         ))
+  #     (inner-proc)))
+  # (outer-proc)
+  # (inner-proc)
+  # CODE
+  #     assert_raise(RuntimeError) { @interpreter.run(def_proc_with_inner_proc) }
+  #   end
 
   # def test_variable_definitions_should_be_local_to_procedures
-    
+  
   # end
 
   # def test_closure_over_lexical_scope

@@ -4,15 +4,13 @@ class Interpreter
   def initialize  
     @lexer = Lexer.new
     @parser = Parser.new
-    @global_env = AstNode.new
-    load_libraries
+    @environment = Scope.new
   end
 
   def run(code)
     tokens = @lexer.tokenize(code)
-    @new_ast_branch  = @parser.ast_tree(tokens)
-    @global_env.add @new_ast_branch
-    last_value = @new_ast_branch.eval
+    @new_ast_branch  = @parser.ast_tree(tokens) 
+    last_value = @new_ast_branch.eval @environment
     last_value.to_s
   end
 
@@ -20,9 +18,9 @@ class Interpreter
     puts "----------------------"
     puts "PROGRAM DUMP START"
     puts "----------------------"
-    puts "Abstract Syntax Tree:"
+    puts "Environment:"
     puts "----------------------"
-    puts @global_env.internal_structure
+    puts @environment
     puts "----------------------"
     puts "PROGRAM DUMP END"
     puts "----------------------"
