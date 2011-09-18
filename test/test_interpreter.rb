@@ -157,7 +157,22 @@ CODE
      assert_equal "345", @interpreter.run(multiple_inner) 
    end
 
- #  def test_define_and_call_inner_proc
+ def test_define_and_call_inner_proc
+    def_proc_with_inner_proc = <<CODE
+(define outer-proc
+  (lambda ()
+    (define inner-proc
+      (lambda ()
+        111
+        ))
+    (inner-proc)))
+
+(outer-proc)
+CODE
+    assert_equal "111", @interpreter.run(def_proc_with_inner_proc)     
+  end
+  
+ #  def test_inner_lambdas_should_not_be_visible_globally
 #     def_proc_with_inner_proc = <<CODE
 # (define outer-proc
 #   (lambda ()
@@ -166,17 +181,17 @@ CODE
 #         111
 #         ))
 #     (inner-proc)))
-
 # (outer-proc)
+# (inner-proc)
 # CODE
-#     assert_equal "111", @interpreter.run(def_proc_with_inner_proc)     
+#     assert_raise(RuntimeError) { @interpreter.run(def_proc_with_inner_proc) }
 #   end
-  
-  # def test_inner_lambdas_should_not_be_visible_globally
-  #   #TODO
+
+  # def test_variable_definitions_should_be_local_to_procedures
+    
   # end
 
-  # def test_closure_lexical_scope
+  # def test_closure_over_lexical_scope
   #   #TODO
   # end
   

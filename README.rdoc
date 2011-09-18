@@ -37,10 +37,11 @@ I'll use this readme file as my TODO list.
 * Top level/global program structure
 * Global memory/scope across multiple invocations to interpreter
 * Loading library procedures from external scheme source code
+* Define and invoke lambda/procedure
 
 *TODO*
 
-* Define and invoke lambda/procedure
+* Local scope for lambdas
 * Closures / lexical scope
 
 * Macros aka syntactic extensions

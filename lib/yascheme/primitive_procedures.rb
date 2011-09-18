@@ -1,4 +1,4 @@
-# These are the procedures/forms that are cannot be expressed in Scheme
+# These are the procedures/forms that cannot be expressed in Scheme
 # itself. The rest of the language is what the R5RS spec calls
 # "library" syntax/procedures, and can be defined/self-hosted in the
 # scheme language itself given these underlying primitive procedures.
@@ -8,7 +8,7 @@ module PrimitiveProcedures
   # Define variable
   def eval_set!(argument_nodes, context)
     variable_name = argument_nodes[0].to_s
-    value = argument_nodes[1].eval
+    value = argument_nodes[1].eval    
     define_global variable_name, value
   end
 

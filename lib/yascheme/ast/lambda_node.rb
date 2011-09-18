@@ -13,10 +13,11 @@ class LambdaNode < AstNode
   end
 
   def call_with_arguments(arguments, context)
+    self.parent = context # Hooking this node into global context
     validate_calling_arguments arguments
-    bind_parameters arguments, context
+    bind_parameters arguments, self # Sending lambda as context
     last_result = nil
-    body_list_node.each { |expression| last_result = expression.eval context}
+    body_list_node.each { |expression| last_result = expression.eval self}
     return last_result
   end
 

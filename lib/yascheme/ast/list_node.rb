@@ -1,14 +1,21 @@
 class ListNode < AstNode
   include PrimitiveProcedures  
 
-  # List eval = "run this list as a function"
   def eval(context=self)
-    procedure = eval_first_element children[0], context
     arguments  = children[1..children.length]
+    procedure = eval_first_element children[0], context
     if procedure.class == LambdaNode
       procedure.call_with_arguments arguments, context
     else
       primitive_procedure_call procedure, arguments, context
+    end
+  end
+
+  def eval_first_element(first_element, context)
+    if first_element.class == ListNode
+      first_element = first_element.eval context
+    else
+      first_element = first_element.node_value
     end
   end
 
@@ -18,14 +25,6 @@ class ListNode < AstNode
     else
       eval_call_lambda name, argument_nodes, context
     end    
-  end
-
-  def eval_first_element(first_element, context)
-    if first_element.class == ListNode
-      first_element = first_element.eval context
-    else
-      first_element = first_element.node_value
-    end
   end
   
   def to_s
