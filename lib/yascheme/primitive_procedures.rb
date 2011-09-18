@@ -38,16 +38,23 @@ module PrimitiveProcedures
   end
 
   # Finds named procedure in scope and executes it with given arguments 
-  def eval_call_lambda(proc_name, argument_nodes, scope)     
-    proc_name = proc_name
-    lookedup_lambda = scope.lookup proc_name
-    if lookedup_lambda.nil?
-      raise "Proc_Name '#{proc_name}' undefined"
-    else
-      lookedup_lambda.call_with_arguments argument_nodes, scope
+  def eval_call_lambda(proc, argument_nodes, scope)     
+    if proc.class != LambdaNode
+      proc = lookup_procedure proc, scope
     end
+    proc.call_with_arguments argument_nodes, scope
   end
 
+  def lookup_procedure proc_name, scope
+      proc_name = proc
+      lookedup_lambda = scope.lookup proc_name
+      if lookedup_lambda.nil?
+        raise "Proc_Name '#{proc_name}' undefined"
+      end
+     return lookedup_lambda
+  end
+  
+  
   def eval_let_syntax
     
   end

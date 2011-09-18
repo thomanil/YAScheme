@@ -101,18 +101,18 @@ CODE
       assert_equal "20", @interpreter.run("((lambda()20))")
     end
 
-  #   def test_inline_lambda_call_to_definition
-  #     def_and_call = <<CODE
-  # (define baz 12)
-  # ((lambda () baz))
-  # CODE
-  #     assert_equal "12", @interpreter.run(def_and_call)
-  #   end
+    def test_inline_lambda_call_to_definition
+      def_and_call = <<CODE
+  (define baz 12)
+  ((lambda () baz))
+CODE
+      assert_equal "12", @interpreter.run(def_and_call)
+    end
 
-  #   def test_inline_lambda_def_and_call_with_argument
-  #     inline_call_with_argument  = "((lambda (l)(car l)) '(50 100))"
-  #     assert_equal "50", @interpreter.run(inline_call_with_argument) 
-  #   end
+    # def test_inline_lambda_def_and_call_with_argument
+    #   inline_call_with_argument  = "((lambda (l)(car l)) '(50 100))"
+    #   assert_equal "50", @interpreter.run(inline_call_with_argument) 
+    # end
   
   #   def test_define_and_call_lambda
   #     defined_car_proxy_procedure = <<CODE
