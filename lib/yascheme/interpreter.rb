@@ -8,8 +8,8 @@ class Interpreter
 
   def run(code)
     tokens = @lexer.tokenize(code)
-    @new_ast_branch  = @parser.ast_tree(tokens) 
-    last_value = @new_ast_branch.eval @global_scope
+    @abstract_syntax_tree  = @parser.ast_tree(tokens) 
+    last_value = @abstract_syntax_tree.eval @global_scope
     last_value.to_s
   end
 
