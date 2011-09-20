@@ -1,42 +1,46 @@
 class Scope
-   
-  def initialize
-    @@global_symbol_table = {}
-    @local_symbol_table = {}      
-  end
 
-  def global_symbol_table
-    @@global_symbol_table
-  end
-
-  def local_symbol_table
-    @local_symbol_table
+  attr_accessor :symbol_table_stack
+  
+  def initialize(outer_scope=nil)
+    if outer_scope.nil?
+      @is_global = true
+      @symbol_table_stack = []
+      @symbol_table_stack.push({})
+    else
+      @is_global = false
+      @symbol_table_stack = []
+      outer_scope.symbol_table_stack.each do |symbol_table_map|
+        @symbol_table_stack.push symbol_table_map
+      end
+      @symbol_table_stack.push({})
+    end
   end
   
-  def define_local(variable_name, node)
-    ensure_only_ast_nodes_are_bound node
-    @local_symbol_table[variable_name] = node
+  def is_global?
+    @is_global
   end
   
-  def define_global(variable_name, node)
+  def define(variable_name, node)
     ensure_only_ast_nodes_are_bound node
-    @@global_symbol_table[variable_name] = node
+    @symbol_table_stack.last[variable_name] = node
   end
-
+  
+  def lookup(name)
+    looked_up = nil
+    @symbol_table_stack.each do |symbol_table|
+      current_scope_lookup = symbol_table[name]
+      if !current_scope_lookup.nil?
+        looked_up = current_scope_lookup
+      end
+    end
+    return looked_up
+  end
+  
   def ensure_only_ast_nodes_are_bound node
     if !node.is_a? AstNode
-      raise "Only Ast nodes can be bound as values! #{variable_name} is a #{node.class}"
+      raise "Variable value not an AST node! #{variable_name} is a #{node.class}"
     end
   end
-    
-  def lookup(name)
-    global = @@global_symbol_table[name]
-    local = @local_symbol_table[name]
-    lookedup = global
-    if !local.nil?
-      lookedup = local
-    end
-    return lookedup
-  end
-
+  
 end   

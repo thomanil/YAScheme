@@ -29,7 +29,7 @@ class LambdaNode < AstNode
   def bind_parameters(arguments, scope)
     arguments.each_with_index do |argument_value, i|
       evaluated_argument = argument_value.eval scope
-      scope.define_local(@expected_argument_names[i], evaluated_argument)
+      scope.define(@expected_argument_names[i], evaluated_argument)
     end
   end
 

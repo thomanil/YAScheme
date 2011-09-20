@@ -9,7 +9,7 @@ module PrimitiveProcedures
   def eval_set!(argument_nodes, scope)
     variable_name = argument_nodes[0].to_s
     value = argument_nodes[1].eval scope
-    scope.define_local variable_name, value
+    scope.define variable_name, value
   end
 
   # Equvivalent with set!
