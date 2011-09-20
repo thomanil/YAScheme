@@ -1,5 +1,4 @@
 class Interpreter
-  attr_accessor :node_value
 
   def initialize  
     @lexer = Lexer.new
