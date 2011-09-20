@@ -40,9 +40,9 @@ module PrimitiveProcedures
   # Finds named procedure in scope and executes it with given arguments 
   def eval_call_lambda(proc, argument_nodes, scope)     
     if proc.class != LambdaNode
-      proc = lookup_procedure proc, scope
+      proc = lookup_procedure proc, Scope.new(scope)
     end
-    proc.call_with_arguments argument_nodes, scope
+    proc.call_with_arguments argument_nodes, Scope.new(scope)
   end
 
   def lookup_procedure proc_name, scope
@@ -120,19 +120,19 @@ module PrimitiveProcedures
   # pair?
 
   def eval_car(argument_nodes, scope)
-    argument_nodes[0].eval(scope).children.first
+    argument_nodes[0].eval(Scope.new(scope)).children.first
   end
 
   def eval_cdr(argument_nodes, scope)
-    rest = argument_nodes[0].eval(scope).children[1..children.length]
+    rest = argument_nodes[0].eval(Scope.new(scope)).children[1..children.length]
     new_list = ListNode.new
     rest.each { |item| new_list.add item }
     return new_list
   end
 
   def eval_cons(argument_nodes, scope)
-    arg1 = argument_nodes[0].eval(scope)
-    arg2 = argument_nodes[1].eval(scope)
+    arg1 = argument_nodes[0].eval(Scope.new(scope))
+    arg2 = argument_nodes[1].eval(Scope.new(scope))
     if arg2.class == ListNode
       consed_list = arg2
       arg2.children.insert(0, arg1)

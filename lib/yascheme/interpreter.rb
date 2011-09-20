@@ -4,13 +4,13 @@ class Interpreter
   def initialize  
     @lexer = Lexer.new
     @parser = Parser.new
-    @environment = Scope.new
+    @global_scope = Scope.new
   end
 
   def run(code)
     tokens = @lexer.tokenize(code)
     @new_ast_branch  = @parser.ast_tree(tokens) 
-    last_value = @new_ast_branch.eval @environment
+    last_value = @new_ast_branch.eval @global_scope
     last_value.to_s
   end
 
