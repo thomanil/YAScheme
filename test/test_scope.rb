@@ -32,12 +32,32 @@ class TestScope < Test::Unit::TestCase
     assert_equal value, @scope.lookup("foo")
   end
   
-  def test_local_value_clobbers_global_value
+  def test_local_value_shadows_global_value
     global = StringNode.new "100"
     local = StringNode.new "10"
     @scope.define_local "foo", local
     @scope.define_global "foo", global
     assert_equal local, @scope.lookup("foo")
+  end
+
+  def test_typical_scope_def_and_usage_pattern
+
+  end
+    
+  def test_outermost_scope_defines_global_variables
+
+  end
+
+  def test_global_variables_persist_after_defining_scope_is_discarded
+
+  end
+
+  def test_local_scopes_are_created_upon_outer_scopes
+
+  end
+  
+  def test_inner_local_value_shadows_more_outer_variable
+
   end
 
   def test_local_variable_only_visible_in_and_below_node_that_defined_them
@@ -50,8 +70,6 @@ class TestScope < Test::Unit::TestCase
  
   def test_lexical_scope_variable_are_visible_to_procedures_defined_in_same_block
 
-
   end
-  
   
 end

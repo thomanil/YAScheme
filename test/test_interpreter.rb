@@ -173,7 +173,7 @@ CODE
     assert_equal "111", @interpreter.run(def_proc_with_inner_proc)     
   end  
   
-#   def test_inner_variables_shouldnt_be_global
+#   def test_inner_variables_shouldnt_visible_globally
 #     def_proc_with_inner_variable = <<CODE
 #   (define the-definer
 #     (lambda ()
@@ -185,6 +185,10 @@ CODE
 # CODE
 #     assert_raise(RuntimeError) { @interpreter.run(def_proc_with_inner_variable) }
 #   end
+
+  def test_local_variables_gone_after_surrounding_expression_finished
+    
+  end
   
  #  def test_inner_lambdas_should_not_be_visible_globally
 #       def_proc_with_inner_proc = <<CODE
@@ -200,10 +204,14 @@ CODE
 #           assert_raise(RuntimeError) { @interpreter.run(def_proc_with_inner_proc) }
 #   end
 
-  
 
-  # def test_closure_over_lexical_scope
-  #   #TODO
-  # end
+  def test_lexical_scope_inner_lambda_def_binds_surrounding_scope
+    # Define and use variable in lexical scope using inner lambda
+  end
+
+  def test_lexical_scope_closures_preserve_bound_variables_after_surrounding_lambda_call
+    # Use lambda and closure to create module with persistent state, keep
+    # updating variable in closure.
+  end
   
 end

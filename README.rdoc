@@ -31,19 +31,16 @@ I'll use this readme file as my TODO list.
 * Procedure evaluation
 * Can run Yascheme script on specified file or start REPL
 * car, cdr, cons
-* Global scope
-* Bindings (set!, define) and variable resolving in symbol eval
+* Variable binding (set!, define) 
 * if conditional
-* Top level/global program structure
 * Global memory/scope across multiple invocations to interpreter
 * Loading library procedures from external scheme source code
-* Define and invoke lambda/procedure
+* Define and call lambdas (procedures/functions)
 
 *TODO*
 
 * Refactor eval api, list & ast evaluation. Simpler model, no empty children, etc
-* Local scope where applicable
-* Closures
+* Proper global, local and lexical scope.
 
 * Macros aka syntactic extensions
 
