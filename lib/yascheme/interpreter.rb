@@ -17,9 +17,9 @@ class Interpreter
     puts "----------------------"
     puts "PROGRAM DUMP START"
     puts "----------------------"
-    puts "Environment:"
+    puts "Global scope:"
     puts "----------------------"
-    puts @environment
+    puts @global_scope # TODO write pretty print to_s for scope.rb
     puts "----------------------"
     puts "PROGRAM DUMP END"
     puts "----------------------"
