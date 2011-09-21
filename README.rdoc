@@ -37,10 +37,11 @@ I'll use this readme file as my TODO list.
 * Loading library procedures from external scheme source code
 * Define and call lambdas (procedures/functions)
 * Global and block/local scope
+* Lexical scope & closures
+
 
 *TODO*
 
-* Lexical scope & closures
 * Macros aka syntactic extensions
 
 * Quasiquote (and backquote reader macro expansion)
