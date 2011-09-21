@@ -34,7 +34,7 @@ module PrimitiveProcedures
     param_names = param_node_list.map { |node| node.node_value }
     param_names = param_names.reject { |name| name.nil? }
     body_node_list = argument_nodes[1..argument_nodes.length]
-    LambdaNode.new param_names, body_node_list
+    LambdaNode.new param_names, body_node_list, scope
   end
 
   # Finds named procedure in scope and executes it with given arguments 

@@ -185,10 +185,6 @@ CODE
 CODE
     assert_raise(RuntimeError) { @interpreter.run(def_proc_with_inner_variable) }
   end
-
-  def test_local_variables_gone_after_surrounding_expression_finished
-    
-  end
   
   def test_inner_lambdas_should_not_be_visible_globally
       def_proc_with_inner_proc = <<CODE
@@ -201,17 +197,43 @@ CODE
       (outer-proc)
       (inner-proc)
 CODE
-          assert_raise(RuntimeError) { @interpreter.run(def_proc_with_inner_proc) }
+      assert_raise(RuntimeError) { @interpreter.run(def_proc_with_inner_proc) }
   end
 
 
-  def test_lexical_scope_inner_lambda_def_binds_surrounding_scope
-    # Define and use variable in lexical scope using inner lambda
-  end
+    def test_lexical_scope_inner_lambda_def_binds_surrounding_scope
+      define_closure = <<CODE  
+(define closure-accessor
+  ((lambda () 
+     (define hidden-var 42)
+     (define var-getter
+       (lambda ()
+         hidden-var))
+     var-getter)))
+CODE
+      @interpreter.run(define_closure)
+      assert_equal "42", @interpreter.run("(closure-accessor)")
+      assert_raise(RuntimeError) { @interpreter.run("(hidden-var)") }
+    end
 
-  def test_lexical_scope_closures_preserve_bound_variables_after_surrounding_lambda_call
-    # Use lambda and closure to create module with persistent state, keep
-    # updating variable in closure.
-  end
-  
+    def test_var_in_closure_persists_and_can_be_updated
+      update_closure_var = <<CODE  
+(define closure-accessor
+  ((lambda () 
+     (define hidden-var '())
+     (define conser
+       (lambda (a)
+         (set! hidden-var (cons a hidden-var))
+         hidden-var))
+     conser)))
+
+(closure-accessor 'weird)
+(closure-accessor 'tastes)
+(closure-accessor 'juice)
+(closure-accessor 'tomato)
+CODE
+      assert_equal "(tomato juice tastes weird)", @interpreter.run(update_closure_var)
+    end
+
+    
 end

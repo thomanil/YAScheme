@@ -33,5 +33,9 @@ class Scope
       raise "Variable value not an AST node! #{variable_name} is a #{node.class}"
     end
   end
+
+  def innermost_scoped_symbol_table
+    @symbol_table_stack.last
+  end
   
 end   
