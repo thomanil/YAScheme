@@ -3,22 +3,13 @@ class Scope
   attr_accessor :symbol_table_stack
   
   def initialize(outer_scope=nil)
-    if outer_scope.nil?
-      @is_global = true
-      @symbol_table_stack = []
-      @symbol_table_stack.push({})
-    else
-      @is_global = false
-      @symbol_table_stack = []
-      outer_scope.symbol_table_stack.each do |symbol_table_map|
-        @symbol_table_stack.push symbol_table_map
+    @symbol_table_stack = []
+    if !outer_scope.nil?
+      outer_scope.symbol_table_stack.each do |outer_symbol_table|
+        @symbol_table_stack.push outer_symbol_table
       end
-      @symbol_table_stack.push({})
     end
-  end
-  
-  def is_global?
-    @is_global
+    @symbol_table_stack.push({})
   end
   
   def define(variable_name, node)

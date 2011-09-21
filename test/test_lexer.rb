@@ -10,14 +10,14 @@ class TestLexer < Test::Unit::TestCase
     assert_raise(RuntimeError) { @lexer.syntax_error("Some error") }
   end
   
-  def test_unbalanced_parens
+  def test_unbalanced_quotes
     assert !@lexer.unbalanced_quots?(" \"  \" ")
     assert @lexer.unbalanced_quots?(" \" ")
     assert @lexer.unbalanced_quots?(" \"  \"  \" ") 
     assert_raise(RuntimeError) { @lexer.tokenize(" \" ") }
   end
   
-  def test_unbalanced_quotations
+  def test_unbalanced_parens
     assert !@lexer.unbalanced_parens?(" (  ) ")
     assert @lexer.unbalanced_parens?(" ( ")
     assert @lexer.unbalanced_parens?(" ) ")

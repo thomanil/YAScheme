@@ -6,13 +6,17 @@ class TestScope < Test::Unit::TestCase
     @global_scope = Scope.new
   end
   
-  def test_new_scope_without_arguments_is_global_scope
-    assert_equal true, @global_scope.is_global?
+  def test_created_global_scope_has_single_stack_debth
+    global = Scope.new
+    assert_not_nil global
+    assert_equal 1, global.symbol_table_stack.count
   end
 
-  def test_scope_based_on_other_scope_is_local_scope
-    local_scope = Scope.new(@global_scope)
-    assert_equal false, local_scope.is_global?
+  def test_local_scope_has_larger_stack_debth
+    inner = Scope.new(@global_scope)
+    assert_equal 2, inner.symbol_table_stack.count
+    inner_inner = Scope.new(inner)
+    assert_equal 3, inner_inner.symbol_table_stack.count
   end
 
   def test_variable_definition
