@@ -44,9 +44,9 @@ I'll use this readme file as my TODO list.
 
 * Macros aka syntactic extensions
 
-* Quasiquote (and backquote reader macro expansion)
+* Most essential primitive procedures for input, output, numbers, strings
 * Rest of datatypes w. their core procedures: vector, character, port
-* Core procedures for input, output
+* Quasiquote (and backquote reader macro expansion)
 
 * Continuations
 * Tail call optimization

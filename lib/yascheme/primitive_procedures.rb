@@ -4,7 +4,21 @@
 # scheme language itself given these underlying primitive procedures.
 # (YAScheme defines the rest of itself in  ./scheme_code/library_procedures.scm)
 module PrimitiveProcedures
+  
+  def procedure(name, &block)
+    internal_proc_name = "proc"+rand(1000000).to_s
+    @procedures ||= {}
+    @procedures[name] = internal_proc_name
+    self.class.send(:define_method, internal_proc_name, &block)
+  end
 
+  def call_procedure(name, argument_nodes, scope)
+    @procedures ||= {}
+    if @procedures[name].nil?
+      raise "No primitive procedure called '#{name}' is defined!"
+    end
+  end
+  
   # Define variable
   def eval_set!(argument_nodes, scope)
     variable_name = argument_nodes[0].to_s
@@ -82,7 +96,44 @@ module PrimitiveProcedures
   # >
   # <=
   # >=
-  # +
+
+
+  # TODO support this way of defining procedures. Lets us dispatch
+  # directly based on exact method name, without hitting
+  # constraints/overloads for ruby operators and methods
+  # proc "+" do |argument_nodes, scope|
+  #   a = argument_nodes[0].eval(scope).node_value.to_i
+  #   b = argument_nodes[1].eval(scope).node_value.to_i
+  #   NumberNode.new(a+b)
+  # end
+
+  def eval_plus(argument_nodes, scope)
+    a, b = arithmetic_argument_values argument_nodes, scope
+    NumberNode.new(a+b)
+  end
+
+  def eval_minus(argument_nodes, scope)
+    a, b = arithmetic_argument_values argument_nodes, scope
+    NumberNode.new(a-b)
+  end
+
+  def eval_multiply(argument_nodes, scope)
+    a, b = arithmetic_argument_values argument_nodes, scope
+    NumberNode.new(a*b)
+  end
+
+  def eval_divide(argument_nodes, scope)
+    a, b = arithmetic_argument_values argument_nodes, scope
+    NumberNode.new(a/b)
+  end
+  
+  def arithmetic_argument_values(argument_nodes, scope)
+    a = argument_nodes[0].eval(scope).node_value.to_i
+    b = argument_nodes[1].eval(scope).node_value.to_i
+    return a, b
+  end
+  
+  
   # *
   # - a b
   # - a
