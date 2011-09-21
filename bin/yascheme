@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
- 
-require '../lib/yascheme.rb'
+
+require 'yascheme'
 
 @interpreter = Interpreter.new
 @interpreter.load_libraries
@@ -17,7 +17,7 @@ def repl
     rescue Exception
       puts "Error: "+$!
     end
-  end  
+  end
 end
 
 
@@ -25,8 +25,8 @@ if  ARGV.count == 0
   repl
 elsif  ARGV.count == 1
   path = ARGV[0]
-#  file = File.open(path, "r") 
-  filebody = IO.read(path) 
+#  file = File.open(path, "r")
+  filebody = IO.read(path)
   puts @interpreter.run(filebody)
 else
   puts "Usage:"

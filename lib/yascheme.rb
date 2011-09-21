@@ -1,6 +1,3 @@
-$:.unshift(File.dirname(__FILE__)) unless
-  $:.include?(File.dirname(__FILE__)) || $:.include?(File.expand_path(File.dirname(__FILE__)))
-
 require "yascheme/primitive_procedures"
 require "yascheme/lexer"
 require "yascheme/parser"
@@ -20,7 +17,7 @@ require "yascheme/ast/lambda_node"
 
 module Yascheme
   VERSION = '0.0.1'
-  
-  
+
+
 
 end
