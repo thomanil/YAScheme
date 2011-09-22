@@ -42,10 +42,9 @@ I'll use this readme file as my TODO list.
 
 *TODO*
 
-* Macros aka syntactic extensions
-
 * Most essential primitive procedures for input, output, numbers, strings
-* Rest of datatypes w. their core procedures: vector, character, port
+* Rest of datatypes w. most essential core procs: vector, character, port
+* Macros aka syntactic extensions
 * Quasiquote (and backquote reader macro expansion)
 
 * Continuations
@@ -55,7 +54,7 @@ I'll use this readme file as my TODO list.
 * Impl library procedures/syntax in Scheme itself
 * Package and publish as proper gem
 * Way better error handling, validation, diagnostics
-
+* Implement nitty gritty: string escape chars, R5RS indentifier rules, etc etc
 
 == REQUIREMENTS:
 

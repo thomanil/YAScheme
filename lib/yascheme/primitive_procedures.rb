@@ -13,11 +13,29 @@ class PrimitiveProcedures
     # TODO run all define_* methods
   end
 
+  # Invoke a procedure which has been previously been defined as a lambda expr in the
+  # syntax tree.
+  def call_lambda_in_scope(proc, argument_nodes, scope)     
+    if proc.class != LambdaNode
+      proc = lookup_procedure_in_scope proc, Scope.new(scope)
+    end
+    proc.call_with_arguments argument_nodes, Scope.new(scope)
+  end
+  
+  def lookup_procedure_in_scope proc_name, scope
+    lookedup_lambda = scope.lookup proc_name
+    if lookedup_lambda.nil?
+      raise "Procedure '#{proc_name}' not defined in scope"
+    end
+    return lookedup_lambda
+  end
 
-  # DSL for creating and invoking each primitive procedures.
-  # Main benefit is that we can define procedures with any string name, as
+  # DSL for creating and invoking each primitive procedure, as well as
+  # for validating expected procedure params.
+  # Main benefit is that list_node eval can dispatch based on method
+  # name. We can define procedures with any string name as
   # opposed to regular ruby method names (Ruby barfs on hyphens etc in
-  # method name). Also avoids clashed with Ruby methods (+,-, or, and....)
+  # method name). Also avoids conflicts with Ruby methods (+,-, or, and....)
   
   def procedure(name, &proc_block)
     internal_proc_name = "proc"+rand(1000000).to_s
@@ -54,25 +72,6 @@ class PrimitiveProcedures
     end
     true
   end
-
-  # Invoke a procedure which has been previously been defined as a lambda expr in the
-  # syntax tree.
-  def call_lambda_in_scope(proc, argument_nodes, scope)     
-    if proc.class != LambdaNode
-      proc = lookup_procedure_in_scope proc, Scope.new(scope)
-    end
-    proc.call_with_arguments argument_nodes, Scope.new(scope)
-  end
-
-  def lookup_procedure_in_scope proc_name, scope
-    lookedup_lambda = scope.lookup proc_name
-    if lookedup_lambda.nil?
-      raise "Procedure '#{proc_name}' not defined in scope"
-    end
-    return lookedup_lambda
-  end
-
-
 
   # CORE SYNTAX
 
