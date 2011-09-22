@@ -234,26 +234,25 @@ CODE
 CODE
       assert_equal "(tomato juice tastes weird)", @interpreter.run(update_closure_var)
     end
-
-
+    
 
     # Started adding simplest number, string and IO procedures just to
     # have more stuff to work with in tests.
     
     def test_plus
-      assert_equal 3, @interpreter.run("(plus 1 2)")
+      assert_equal 3, @interpreter.run("(+ 1 2)")
     end
 
     def test_minus
-      assert_equal 5, @interpreter.run("(minus 6 1)")
+      assert_equal 5, @interpreter.run("(- 6 1)")
     end
 
     def test_multiply
-      assert_equal 6, @interpreter.run("(multiply 3 2)")
+      assert_equal 6, @interpreter.run("(* 3 2)")
     end
     
     def test_divide
-      assert_equal 3, @interpreter.run("(divide 6 2)")
+      assert_equal 3, @interpreter.run("(/ 6 2)")
     end
     
 end

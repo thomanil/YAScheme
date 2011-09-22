@@ -15,14 +15,20 @@ class ListNode < AstNode
   end
 
   def primitive_procedure_call(name, argument_nodes, scope)
-    procedures = PrimitiveProcedures.new
-    if procedures.respond_to? "eval_#{name}"
-      procedures.send "eval_#{name}", argument_nodes, scope
+    procedures = PrimitiveProcedures.new  
+    # TODO ugly: sometimes name is really an evaluated symbol object,
+    # so we explicitly cast .to_s. Can this be done more elegantly?
+    if procedures.procedure_defined? name.to_s
+      procedures.call_procedure name.to_s, argument_nodes, scope
     else
-      procedures.eval_call_lambda name, argument_nodes, scope
-    end    
+      # TODO sometimes "name" is really an anonymous procedure
+      # object which we pass along and is specially ahandled in
+      # call_lambda_in_scope.
+      # Make this more straight forward!
+      procedures.call_lambda_in_scope name, argument_nodes, scope      
+    end
   end
-  
+
   def to_s
     child_strings = children.map { |child| child.to_s}.join " "
     "(#{child_strings})" 
