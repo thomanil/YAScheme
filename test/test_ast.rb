@@ -1,9 +1,6 @@
 require File.dirname(__FILE__) + '/test_helper.rb'
 
 class TestAst < Test::Unit::TestCase
-
-  def setup
-  end
   
   def test_tree_structure
     parent = AstNode.new

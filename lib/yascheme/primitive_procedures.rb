@@ -3,21 +3,55 @@
 # "library" syntax/procedures, and can be defined/self-hosted in the
 # scheme language itself given these underlying primitive procedures.
 # (YAScheme defines the rest of itself in  ./scheme_code/library_procedures.scm)
-module PrimitiveProcedures
+class PrimitiveProcedures
+
+  def initialize
+    define_number_procedures
+    # TODO run all define_* methods
+  end
   
-  def procedure(name, &block)
+  def procedure(name, &proc_block)
     internal_proc_name = "proc"+rand(1000000).to_s
     @procedures ||= {}
     @procedures[name] = internal_proc_name
-    self.class.send(:define_method, internal_proc_name, &block)
+    self.class.send(:define_method, internal_proc_name, &proc_block)
   end
 
   def call_procedure(name, argument_nodes, scope)
+    if scope.nil?
+      raise "Scope argument cannot be nil!"
+    end
     @procedures ||= {}
     if @procedures[name].nil?
       raise "No primitive procedure called '#{name}' is defined!"
     end
+    internal_proc_name = @procedures[name]
+    self.send(internal_proc_name.to_sym, argument_nodes, scope)
   end
+
+  def expects actual, expected
+     argument_nodes = actual.children
+    if expected.count != argument_nodes.count
+      raise "Expected #{expected.count}, received #{argument_nodes.count}"
+    end
+    argument_nodes.each_with_index do |argument_node, i|
+      if argument_node.class != expected[i]
+        raise "Expected #{expected[i]} in arg #{i}, received #{argument_node.class}"
+      end
+    end
+    true
+  end
+  
+  def define_number_procedures
+
+    procedure "+" do |argument_list, scope|
+      a, b = arithmetic_argument_values argument_nodes, scope
+      NumberNode.new(a+b)
+    end
+
+  end
+
+  
   
   # Define variable
   def eval_set!(argument_nodes, scope)
@@ -175,7 +209,8 @@ module PrimitiveProcedures
   end
 
   def eval_cdr(argument_nodes, scope)
-    rest = argument_nodes[0].eval(Scope.new(scope)).children[1..children.length]
+    evaluated_args = argument_nodes[0].eval(Scope.new(scope))
+    rest = evaluated_args.children[1..evaluated_args.children.length]
     new_list = ListNode.new
     rest.each { |item| new_list.add item }
     return new_list
