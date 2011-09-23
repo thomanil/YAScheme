@@ -23,30 +23,25 @@ I'll use this readme file as my TODO list.
 
 *DONE*
 
-* Basic lexer, parser, interpeter, abstract syntax tree.
-* Lists, numbers, strings, symbols, booleans
-* Comments (;)
-* Quote reader macro (')
-* Eval of quotes
-* Procedure evaluation
-* Can run Yascheme script on specified file or start REPL
+* Lists, numbers, strings, symbols, booleans, quotes
+* Comments
+* Define and call lambdas (procedures/functions)
+* Global and block/local scope
+* Lexical scope & closures
 * car, cdr, cons
 * Variable binding (set!, define) 
 * if conditional
 * Global memory/scope across multiple invocations to interpreter
 * Loading library procedures from external scheme source code
-* Define and call lambdas (procedures/functions)
-* Global and block/local scope
-* Lexical scope & closures
-
+* Can run Yascheme script on specified file or start REPL
 
 *TODO*
 
-* Most essential primitive procedures for input, output, numbers, strings
-* Rest of datatypes w. most essential core procs: vector, character, port
-* Macros aka syntactic extensions
+* Most essential primitive procedures for numbers, strings, lists
+* Rest of datatypes w. most essential core procs: vector, character, port+I/O
 * Quasiquote (and backquote reader macro expansion)
 
+* Macros aka syntactic extensions
 * Continuations
 * Tail call optimization
 
