@@ -9,8 +9,8 @@ class PrimitiveProcedures
     define_core_syntax_procedures
     define_number_procedures
     define_list_procedures
-    
-    # TODO run all define_* methods
+
+    #...
   end
 
   # Invoke a procedure which has been previously been defined as a lambda expr in the

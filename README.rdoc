@@ -37,8 +37,9 @@ I'll use this readme file as my TODO list.
 
 *TODO*
 
+* Add "expects" validation to already impl procedures
 * Most essential primitive procedures for numbers, strings, lists
-* Rest of datatypes w. most essential core procs: vector, character, port+I/O
+* Rest of datatypes w. most essential core procs: vector, pair, character, port+I/O
 * Quasiquote (and backquote reader macro expansion)
 
 * Macros aka syntactic extensions
@@ -48,6 +49,7 @@ I'll use this readme file as my TODO list.
 * Impl rest of primitive procedures
 * Impl library procedures/syntax in Scheme itself
 * Package and publish as proper gem
+
 * Way better error handling, validation, diagnostics
 * Implement nitty gritty: string escape chars, R5RS indentifier rules, etc etc
 
